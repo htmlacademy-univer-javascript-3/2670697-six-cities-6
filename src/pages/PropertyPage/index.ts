@@ -1,1 +1,1 @@
-export { default } from "./PropertyPage";
+export { default } from './PropertyPage';
