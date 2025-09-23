@@ -2,6 +2,8 @@
 
 import CityPlaceCard from "../../components/CityPlaceCard"
 
+import { Amsterdam_Offers } from "../../MockData/allOffers"
+
 function MainPage() {
 
   return (
@@ -95,11 +97,14 @@ function MainPage() {
                   </ul>
                 </form>
                 <div className="cities__places-list places__list tabs__content">
-                  <CityPlaceCard/>
-                  <CityPlaceCard/>
-                  <CityPlaceCard/>
-                  <CityPlaceCard/>
-                  <CityPlaceCard/>
+                  {
+                    Amsterdam_Offers.map((offer) => (
+                      <CityPlaceCard
+                      key={offer.id}
+                      offer = {offer}
+                      />
+                    ))
+                  }
                 </div>
               </section>
               <div className="cities__right-section">
