@@ -5,7 +5,7 @@ interface CityPlaceCardProps {
   offer: IOffers;
 }
 
-const CityPlaceCard = ({ offer }: CityPlaceCardProps ) => (
+const CityPlaceCard = ({ offer }: CityPlaceCardProps) => (
   <article className='cities__card place-card'>
     {
       offer.isPremium && (

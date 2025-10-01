@@ -1,11 +1,11 @@
 // import React from 'react';
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import MainPage from './pages/MainPage';
-import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
-import FavoritesPage from "./pages/FavoritesPage/FavoritesPage";
-import LoginPage from "./pages/LoginPage/LoginPage";
-import OfferPage from "./pages/OfferPage";
+import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
+import FavoritesPage from './pages/FavoritesPage/FavoritesPage';
+import LoginPage from './pages/LoginPage/LoginPage';
+import OfferPage from './pages/OfferPage';
 
 function App() {
 
