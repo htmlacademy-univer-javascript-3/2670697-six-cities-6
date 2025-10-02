@@ -1,11 +1,11 @@
-import { type FC } from 'react';
+// import { type FC } from 'react';
 import { IOffers } from '../../MockData/allOffers';
 
 interface CityPlaceCardProps {
   offer: IOffers;
 }
 
-const CityPlaceCard: FC<CityPlaceCardProps> = ({ offer }) => (
+const CityPlaceCard = ({ offer }: CityPlaceCardProps) => (
   <article className='cities__card place-card'>
     {
       offer.isPremium && (
