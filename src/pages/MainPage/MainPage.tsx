@@ -2,7 +2,7 @@
 
 import CityPlaceCard from '../../components/CityPlaceCard';
 
-import { AMSTERDAM_OFFERS } from '../../MockData/allOffers';
+import { AMSTERDAM_OFFERS } from '../../mocks/offers';
 
 function MainPage() {
 

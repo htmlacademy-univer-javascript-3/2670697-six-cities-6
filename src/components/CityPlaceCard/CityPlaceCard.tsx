@@ -1,8 +1,8 @@
 // import { type FC } from 'react';
-import { IOffers } from '../../MockData/allOffers';
+import { IBaseOffer } from '../../mocks/offers';
 
 interface CityPlaceCardProps {
-  offer: IOffers;
+  offer: IBaseOffer;
 }
 
 const CityPlaceCard = ({ offer }: CityPlaceCardProps) => (
