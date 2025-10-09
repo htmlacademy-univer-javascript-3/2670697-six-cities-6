@@ -2838,3 +2838,12 @@ export const mockOfferExample: IFullOffer = {
 };
 
 export const AMSTERDAM_OFFERS: IBaseOffer[] = mockOffers.filter((offers) => offers.city.name === 'Amsterdam');
+
+export enum CityOffer {
+  PARIS = 'Paris',
+  COLOGNE =  'Cologne',
+  BRUSSELS = 'Brussels',
+  AMSTERDAM = 'Amsterdam',
+  HAMBURG = 'Hamburg',
+  DUSSELDORF = 'Dusseldorf',
+}
