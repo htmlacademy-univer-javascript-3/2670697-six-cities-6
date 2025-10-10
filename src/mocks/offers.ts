@@ -2837,7 +2837,7 @@ export const mockOfferExample: IFullOffer = {
   'maxAdults': 4
 };
 
-export const CITY_LIST: string[] = [
+export const CITY_LIST = [
   'Paris',
   'Cologne',
   'Brussels',
