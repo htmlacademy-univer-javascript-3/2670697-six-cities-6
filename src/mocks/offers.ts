@@ -1,34 +1,49 @@
-export interface IOffers {
-  'id': string;
-  'title': string;
-  'type': string;
-  'price': number;
-  'previewImage': string;
-  'city': {
-    'name': string;
-    'location': {
-      'latitude': number;
-      'longitude': number;
-      'zoom': number;
-    };
-  };
-  'location': {
-    'latitude': number;
-    'longitude': number;
-    'zoom': number;
-  };
-  'isFavorite': boolean;
-  'isPremium': boolean;
-  'rating': number;
+export interface ILocation {
+  latitude: number;
+  longitude: number;
+  zoom: number;
 }
 
-export const allOffers: IOffers[] = [
+export interface ICity {
+  name: string;
+  location: ILocation;
+}
+
+export interface IBaseOffer {
+  id: string;
+  title: string;
+  type: string;
+  price: number;
+  city: ICity;
+  location: ILocation;
+  isFavorite: boolean;
+  isPremium: boolean;
+  rating: number;
+  previewImage?: string;
+}
+
+export interface IHost {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+}
+
+export interface IFullOffer extends IBaseOffer {
+  description: string;
+  bedrooms: number;
+  goods: string[];
+  host: IHost;
+  images: string[];
+  maxAdults: number;
+}
+
+export const mockOffers: IBaseOffer[] = [
   {
-    'id': '29940fa3-97a6-4bd6-ba65-2e2859f93568',
+    'id': '89e51c91-cb66-4498-abbb-5e0eec4f0a36',
     'title': 'Wood and stone place',
-    'type': 'house',
-    'price': 399,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/20.jpg',
+    'type': 'room',
+    'price': 180,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/16.jpg',
     'city': {
       'name': 'Paris',
       'location': {
@@ -42,16 +57,16 @@ export const allOffers: IOffers[] = [
       'longitude': 2.342499,
       'zoom': 16
     },
-    'isFavorite': false,
-    'isPremium': true,
-    'rating': 4.3
+    'isFavorite': true,
+    'isPremium': false,
+    'rating': 3.6
   },
   {
-    'id': '2f8c2241-a128-4b25-9999-972c9b1a2153',
-    'title': 'Perfectly located Castro',
-    'type': 'house',
-    'price': 606,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/15.jpg',
+    'id': '0b9d8fb3-4011-48cc-a941-ef17ec3d08d4',
+    'title': 'Waterfront with extraordinary view',
+    'type': 'hotel',
+    'price': 224,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/20.jpg',
     'city': {
       'name': 'Paris',
       'location': {
@@ -66,15 +81,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': true,
-    'rating': 1.2
+    'isPremium': false,
+    'rating': 4.6
   },
   {
-    'id': '82527cdc-8bf6-4ac0-babd-30e5435848e6',
-    'title': 'Amazing and Extremely Central Flat',
-    'type': 'room',
-    'price': 279,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/12.jpg',
+    'id': '48313591-ef64-4651-b3c7-5c6bf393a0a2',
+    'title': 'The Joshua Tree House',
+    'type': 'house',
+    'price': 147,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/5.jpg',
     'city': {
       'name': 'Paris',
       'location': {
@@ -89,15 +104,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': false,
-    'rating': 3.5
+    'isPremium': true,
+    'rating': 4.7
   },
   {
-    'id': '8750799e-459c-43d8-bd41-d54877e8e7b9',
-    'title': 'Tile House',
+    'id': 'cef07c60-1003-481c-bbe7-a234bccc7c61',
+    'title': 'Beautiful & luxurious apartment at great location',
     'type': 'apartment',
-    'price': 155,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/13.jpg',
+    'price': 437,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/12.jpg',
     'city': {
       'name': 'Paris',
       'location': {
@@ -113,14 +128,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 1.1
+    'rating': 2.4
   },
   {
-    'id': 'c494ff72-e7eb-42fb-b1ad-e75a4a3f0fc2',
-    'title': 'Loft Studio in the Central Area',
-    'type': 'room',
-    'price': 138,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/13.jpg',
+    'id': '5719a3b5-003a-481e-aad8-7c71b172cd93',
+    'title': 'House in countryside',
+    'type': 'hotel',
+    'price': 444,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/10.jpg',
     'city': {
       'name': 'Paris',
       'location': {
@@ -135,15 +150,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': false,
+    'isPremium': true,
     'rating': 2.8
   },
   {
-    'id': '12cd3f5f-bb01-4ba7-8a55-cdfe5317311e',
-    'title': 'The house among olive ',
-    'type': 'hotel',
-    'price': 216,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/11.jpg',
+    'id': '475836e8-a944-42b0-8d7d-b6646a92665e',
+    'title': 'Waterfront with extraordinary view',
+    'type': 'apartment',
+    'price': 315,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/6.jpg',
     'city': {
       'name': 'Paris',
       'location': {
@@ -159,14 +174,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': false,
-    'rating': 1.8
+    'rating': 3.9
   },
   {
-    'id': 'a3baec0d-424e-4971-b42f-32bb1fe634db',
-    'title': 'Perfectly located Castro',
-    'type': 'house',
-    'price': 550,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/19.jpg',
+    'id': '57297746-f995-4231-9cbd-46536c222c62',
+    'title': 'Amazing and Extremely Central Flat',
+    'type': 'hotel',
+    'price': 126,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/2.jpg',
     'city': {
       'name': 'Paris',
       'location': {
@@ -182,14 +197,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 2
+    'rating': 1.1
   },
   {
-    'id': '46c8d3e2-9914-4f27-bd36-d03f04bb305a',
-    'title': 'Waterfront with extraordinary view',
+    'id': '2c591cc8-ce28-47c0-9691-61cebcc042f5',
+    'title': 'Wood and stone place',
     'type': 'apartment',
-    'price': 123,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/10.jpg',
+    'price': 202,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/19.jpg',
     'city': {
       'name': 'Paris',
       'location': {
@@ -205,14 +220,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 2.2
+    'rating': 4.9
   },
   {
-    'id': '9540dd60-99a2-4712-b4bb-dd38a3e538f7',
-    'title': 'Loft Studio in the Central Area',
-    'type': 'hotel',
-    'price': 288,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/3.jpg',
+    'id': '0b0177fc-e43f-47e7-bc76-397db47d3e3d',
+    'title': 'Penthouse, 4-5 rooms + 5 balconies',
+    'type': 'room',
+    'price': 218,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/12.jpg',
     'city': {
       'name': 'Paris',
       'location': {
@@ -231,11 +246,11 @@ export const allOffers: IOffers[] = [
     'rating': 3
   },
   {
-    'id': '8788546c-e6e8-4306-98b4-a58b105062cb',
-    'title': 'Tile House',
-    'type': 'house',
-    'price': 957,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/9.jpg',
+    'id': '5257773c-2cce-4131-80ff-bb06d9447f60',
+    'title': 'Penthouse, 4-5 rooms + 5 balconies',
+    'type': 'apartment',
+    'price': 250,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/10.jpg',
     'city': {
       'name': 'Paris',
       'location': {
@@ -251,14 +266,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': false,
-    'rating': 1.8
+    'rating': 3.3
   },
   {
-    'id': '3d12be26-823b-424a-a671-86421f3ecfcb',
+    'id': 'b959d07a-8ad5-4ac6-8967-279d159546ac',
     'title': 'Perfectly located Castro',
-    'type': 'apartment',
-    'price': 174,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/13.jpg',
+    'type': 'house',
+    'price': 303,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/14.jpg',
     'city': {
       'name': 'Paris',
       'location': {
@@ -274,14 +289,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 4.7
+    'rating': 4.5
   },
   {
-    'id': '25d2da9d-0905-4c34-8775-5b201a729188',
-    'title': 'The Pondhouse - A Magical Place',
-    'type': 'apartment',
-    'price': 146,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/10.jpg',
+    'id': '6673fc62-fd9b-4a71-881f-3842321d04ce',
+    'title': 'The Joshua Tree House',
+    'type': 'hotel',
+    'price': 105,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/2.jpg',
     'city': {
       'name': 'Paris',
       'location': {
@@ -297,14 +312,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 2.1
+    'rating': 2.7
   },
   {
-    'id': '148be577-398c-4e79-b3de-353d33b5499e',
-    'title': 'Penthouse, 4-5 rooms + 5 balconies',
-    'type': 'apartment',
-    'price': 345,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/15.jpg',
+    'id': 'a194b50a-4e37-4a49-8063-2b6ab07a55cb',
+    'title': 'Amazing and Extremely Central Flat',
+    'type': 'room',
+    'price': 289,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/7.jpg',
     'city': {
       'name': 'Paris',
       'location': {
@@ -323,11 +338,11 @@ export const allOffers: IOffers[] = [
     'rating': 2.7
   },
   {
-    'id': '6d666300-1ed1-407c-8b74-7c2c11d86d5f',
-    'title': 'Penthouse, 4-5 rooms + 5 balconies',
-    'type': 'hotel',
-    'price': 479,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/2.jpg',
+    'id': 'd6e458f3-1bed-4b5b-b5a8-0e0aa3c2dc18',
+    'title': 'Amazing and Extremely Central Flat',
+    'type': 'apartment',
+    'price': 365,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/11.jpg',
     'city': {
       'name': 'Paris',
       'location': {
@@ -343,14 +358,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': false,
-    'rating': 4.4
+    'rating': 4.6
   },
   {
-    'id': '1959c9d7-2af6-427e-a113-52aeb9701cb0',
-    'title': 'Waterfront with extraordinary view',
-    'type': 'apartment',
-    'price': 456,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/7.jpg',
+    'id': '9142246f-717f-407e-a0f6-c22ac9965dbb',
+    'title': 'Amazing and Extremely Central Flat',
+    'type': 'hotel',
+    'price': 457,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/5.jpg',
     'city': {
       'name': 'Paris',
       'location': {
@@ -366,14 +381,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 4.1
+    'rating': 3.9
   },
   {
-    'id': 'debe677f-c10b-48ac-83fd-a2b1a12ac236',
-    'title': 'The Joshua Tree House',
-    'type': 'room',
-    'price': 248,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/9.jpg',
+    'id': '3f932e91-afa6-490b-a8f7-0f09387326d7',
+    'title': 'The Pondhouse - A Magical Place',
+    'type': 'apartment',
+    'price': 442,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/16.jpg',
     'city': {
       'name': 'Paris',
       'location': {
@@ -388,15 +403,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': true,
-    'rating': 2
+    'isPremium': false,
+    'rating': 3.8
   },
   {
-    'id': '79bae056-e788-4b89-a11f-dba8784d9758',
-    'title': 'Loft Studio in the Central Area',
-    'type': 'house',
-    'price': 407,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/12.jpg',
+    'id': '8ad801cc-81aa-4166-b325-65a14314c3ab',
+    'title': 'Wood and stone place',
+    'type': 'room',
+    'price': 280,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/2.jpg',
     'city': {
       'name': 'Paris',
       'location': {
@@ -412,14 +427,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': false,
-    'rating': 1.7
+    'rating': 2.5
   },
   {
-    'id': '10c43776-9ba5-414c-af7a-26617e4a1e4e',
-    'title': 'The house among olive ',
-    'type': 'hotel',
-    'price': 343,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/20.jpg',
+    'id': '8a51b96a-6efa-4135-a13f-043ce437f489',
+    'title': 'Waterfront with extraordinary view',
+    'type': 'room',
+    'price': 120,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/9.jpg',
     'city': {
       'name': 'Paris',
       'location': {
@@ -435,14 +450,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 2.6
+    'rating': 4.3
   },
   {
-    'id': 'f89eebac-69fc-4280-8441-08eb8739c89a',
-    'title': 'House in countryside',
-    'type': 'apartment',
-    'price': 387,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/9.jpg',
+    'id': 'a7eb6637-785f-4370-a57f-b034bff94183',
+    'title': 'Wood and stone place',
+    'type': 'room',
+    'price': 176,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/18.jpg',
     'city': {
       'name': 'Paris',
       'location': {
@@ -457,15 +472,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': false,
-    'rating': 2.8
+    'isPremium': true,
+    'rating': 2.4
   },
   {
-    'id': '2d81234f-fd63-4f6f-abb3-9e08d4ace14f',
-    'title': 'Penthouse, 4-5 rooms + 5 balconies',
-    'type': 'room',
-    'price': 124,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/18.jpg',
+    'id': 'd2a65a93-957b-4a45-bb30-f42011c8dff6',
+    'title': 'Wood and stone place',
+    'type': 'house',
+    'price': 939,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/19.jpg',
     'city': {
       'name': 'Paris',
       'location': {
@@ -481,14 +496,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 4.7
+    'rating': 2.7
   },
   {
-    'id': '59172588-45fa-4275-ada3-fe77c2308f53',
-    'title': 'Penthouse, 4-5 rooms + 5 balconies',
-    'type': 'apartment',
-    'price': 200,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/20.jpg',
+    'id': 'ab92fb0a-161a-4144-a1f8-9ff8078ebbad',
+    'title': 'Amazing and Extremely Central Flat',
+    'type': 'room',
+    'price': 185,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/9.jpg',
     'city': {
       'name': 'Cologne',
       'location': {
@@ -502,16 +517,16 @@ export const allOffers: IOffers[] = [
       'longitude': 6.961974,
       'zoom': 16
     },
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': true,
-    'rating': 1.6
+    'rating': 4.8
   },
   {
-    'id': '4d6ea069-f4b8-4765-9af7-715d3f3417d0',
-    'title': 'The Pondhouse - A Magical Place',
-    'type': 'house',
-    'price': 991,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/14.jpg',
+    'id': '3acd5b60-c0dd-4f69-821f-d5eb280d1f0e',
+    'title': 'Loft Studio in the Central Area',
+    'type': 'hotel',
+    'price': 248,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/20.jpg',
     'city': {
       'name': 'Cologne',
       'location': {
@@ -527,14 +542,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 4.7
+    'rating': 3.4
   },
   {
-    'id': 'd78ed0fa-6e73-49d5-b8df-cdfce4a8adc2',
-    'title': 'Amazing and Extremely Central Flat',
-    'type': 'apartment',
-    'price': 126,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/9.jpg',
+    'id': 'eae8e15c-d552-462a-ac83-e52adc89287d',
+    'title': 'Beautiful & luxurious apartment at great location',
+    'type': 'room',
+    'price': 267,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/1.jpg',
     'city': {
       'name': 'Cologne',
       'location': {
@@ -550,14 +565,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': false,
-    'rating': 2.8
+    'rating': 1.2
   },
   {
-    'id': 'b9f16ccd-b0f2-410f-8e65-5388135043d2',
-    'title': 'House in countryside',
-    'type': 'room',
-    'price': 155,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/12.jpg',
+    'id': 'd4c2f9e9-938b-4f48-b304-b514472ba4cf',
+    'title': 'The house among olive ',
+    'type': 'apartment',
+    'price': 168,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/8.jpg',
     'city': {
       'name': 'Cologne',
       'location': {
@@ -572,15 +587,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': true,
-    'rating': 5
+    'isPremium': false,
+    'rating': 4.3
   },
   {
-    'id': '8ebbe6b7-ba60-46a6-a576-a83738e02de3',
-    'title': 'Loft Studio in the Central Area',
-    'type': 'apartment',
-    'price': 143,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/10.jpg',
+    'id': '18f99018-c955-4147-bc8f-cc4769f5f30f',
+    'title': 'Beautiful & luxurious apartment at great location',
+    'type': 'house',
+    'price': 585,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/14.jpg',
     'city': {
       'name': 'Cologne',
       'location': {
@@ -596,14 +611,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 5
+    'rating': 1.8
   },
   {
-    'id': 'c14dcfea-4f5e-4ea0-9b61-aa8e14de82f0',
-    'title': 'The house among olive ',
-    'type': 'hotel',
-    'price': 452,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/10.jpg',
+    'id': 'f4609a0a-241c-4190-8ed9-bb780a5074dc',
+    'title': 'Tile House',
+    'type': 'apartment',
+    'price': 488,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/6.jpg',
     'city': {
       'name': 'Cologne',
       'location': {
@@ -618,14 +633,14 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': true,
-    'rating': 1.3
+    'isPremium': false,
+    'rating': 2.7
   },
   {
-    'id': '755b1f83-ad4c-4b8e-ad76-cd6673faa238',
-    'title': 'The house among olive ',
+    'id': '3f58a2d5-3197-4052-a1f3-ccf6b095a7b8',
+    'title': 'The Pondhouse - A Magical Place',
     'type': 'house',
-    'price': 231,
+    'price': 294,
     'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/15.jpg',
     'city': {
       'name': 'Cologne',
@@ -642,14 +657,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 2.1
+    'rating': 1.2
   },
   {
-    'id': 'a384ea6e-dc95-4bce-bbdf-d9656025d2b8',
-    'title': 'The Pondhouse - A Magical Place',
+    'id': 'e38adb85-18ae-432e-af3f-522d574f860b',
+    'title': 'Loft Studio in the Central Area',
     'type': 'house',
-    'price': 488,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/3.jpg',
+    'price': 694,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/13.jpg',
     'city': {
       'name': 'Cologne',
       'location': {
@@ -665,14 +680,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 2.4
+    'rating': 4.4
   },
   {
-    'id': '8e776d52-5966-4993-b94a-0e2c34865e3c',
-    'title': 'Penthouse, 4-5 rooms + 5 balconies',
-    'type': 'apartment',
-    'price': 359,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/5.jpg',
+    'id': '3b5f599b-5fab-4ba8-975f-9bf6943f30ac',
+    'title': 'Waterfront with extraordinary view',
+    'type': 'hotel',
+    'price': 311,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/2.jpg',
     'city': {
       'name': 'Cologne',
       'location': {
@@ -688,14 +703,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 4.7
+    'rating': 2.4
   },
   {
-    'id': '6869d079-71fc-4c03-b9f2-96478e879d1c',
-    'title': 'The house among olive ',
-    'type': 'hotel',
-    'price': 465,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/20.jpg',
+    'id': '0d947c70-b286-4990-9ea1-3909bc69845c',
+    'title': 'Amazing and Extremely Central Flat',
+    'type': 'apartment',
+    'price': 396,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/6.jpg',
     'city': {
       'name': 'Cologne',
       'location': {
@@ -710,15 +725,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': true,
-    'rating': 1
+    'isPremium': false,
+    'rating': 4.9
   },
   {
-    'id': 'ade7ade7-fba5-48fb-930c-30789d7ededd',
-    'title': 'Canal View Prinsengracht',
+    'id': 'b287b49f-89dd-4471-84b8-f3ef0fd1a82c',
+    'title': 'The Joshua Tree House',
     'type': 'house',
-    'price': 936,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/4.jpg',
+    'price': 747,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/1.jpg',
     'city': {
       'name': 'Cologne',
       'location': {
@@ -734,14 +749,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 3.5
+    'rating': 2.4
   },
   {
-    'id': '97bd4e3c-7974-4e0a-9fb6-dd2fc63993fe',
-    'title': 'Nice, cozy, warm big bed apartment',
-    'type': 'apartment',
-    'price': 233,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/2.jpg',
+    'id': '45fa8caf-bc15-42ad-b32b-b5cd7d931de2',
+    'title': 'Waterfront with extraordinary view',
+    'type': 'house',
+    'price': 454,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/17.jpg',
     'city': {
       'name': 'Cologne',
       'location': {
@@ -757,14 +772,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 1.4
+    'rating': 3.8
   },
   {
-    'id': '34aba0ec-1f77-430f-8074-54caeac31777',
-    'title': 'Loft Studio in the Central Area',
+    'id': '3ca497d2-55ac-41f3-ab4a-c81952bb4faf',
+    'title': 'Perfectly located Castro',
     'type': 'room',
-    'price': 136,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/8.jpg',
+    'price': 134,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/18.jpg',
     'city': {
       'name': 'Cologne',
       'location': {
@@ -780,14 +795,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': false,
-    'rating': 1.7
+    'rating': 4.3
   },
   {
-    'id': '346ee75c-f2b8-4a5e-b619-35da824bbb3e',
-    'title': 'Canal View Prinsengracht',
-    'type': 'hotel',
-    'price': 401,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/15.jpg',
+    'id': '89a592f7-2b9b-44cc-bc73-252dceb7c379',
+    'title': 'The Joshua Tree House',
+    'type': 'apartment',
+    'price': 318,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/20.jpg',
     'city': {
       'name': 'Cologne',
       'location': {
@@ -802,15 +817,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': false,
-    'rating': 1.7
+    'isPremium': true,
+    'rating': 4.5
   },
   {
-    'id': '7096fecf-49a5-4261-8116-55ee105a7492',
-    'title': 'Waterfront with extraordinary view',
-    'type': 'apartment',
-    'price': 406,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/13.jpg',
+    'id': '3089329a-fb13-4181-93f7-611085c19863',
+    'title': 'Tile House',
+    'type': 'house',
+    'price': 249,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/15.jpg',
     'city': {
       'name': 'Cologne',
       'location': {
@@ -825,15 +840,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': false,
-    'rating': 4.8
+    'isPremium': true,
+    'rating': 4
   },
   {
-    'id': 'c1d4208a-a03a-45c0-b279-d2cbbdeb8d4e',
-    'title': 'Tile House',
-    'type': 'apartment',
-    'price': 336,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/17.jpg',
+    'id': '60f7565c-57b4-4b6c-8bf7-7dc61ac2aff6',
+    'title': 'Wood and stone place',
+    'type': 'hotel',
+    'price': 384,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/12.jpg',
     'city': {
       'name': 'Cologne',
       'location': {
@@ -849,14 +864,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': false,
-    'rating': 4.4
+    'rating': 4.5
   },
   {
-    'id': '90012d6f-ced8-46d6-9245-209cbe2606b2',
-    'title': 'The Joshua Tree House',
-    'type': 'house',
-    'price': 270,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/11.jpg',
+    'id': 'd70f1e68-043e-44dc-8772-2a5d7cc5a889',
+    'title': 'Penthouse, 4-5 rooms + 5 balconies',
+    'type': 'hotel',
+    'price': 366,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/5.jpg',
     'city': {
       'name': 'Cologne',
       'location': {
@@ -871,15 +886,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': true,
-    'rating': 1.3
+    'isPremium': false,
+    'rating': 2.7
   },
   {
-    'id': '1ee2b0a8-d310-402b-a506-d2997691db1b',
-    'title': 'Perfectly located Castro',
-    'type': 'house',
-    'price': 288,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/8.jpg',
+    'id': '3a8008f8-fd04-4282-9492-4076fb4aff0f',
+    'title': 'The house among olive ',
+    'type': 'hotel',
+    'price': 396,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/11.jpg',
     'city': {
       'name': 'Cologne',
       'location': {
@@ -895,14 +910,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 3.6
+    'rating': 3.7
   },
   {
-    'id': '8e77e1d7-c595-4bb9-a147-2fc144cca90c',
-    'title': 'The Pondhouse - A Magical Place',
-    'type': 'hotel',
-    'price': 182,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/4.jpg',
+    'id': '0eb40a95-24d0-4cd8-af1c-cfeb6764f832',
+    'title': 'Beautiful & luxurious apartment at great location',
+    'type': 'apartment',
+    'price': 171,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/13.jpg',
     'city': {
       'name': 'Cologne',
       'location': {
@@ -917,15 +932,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': true,
-    'rating': 2.8
+    'isPremium': false,
+    'rating': 4.3
   },
   {
-    'id': 'dd3939fb-0670-4d8e-9938-4230ccad5b04',
-    'title': 'Loft Studio in the Central Area',
+    'id': 'fcf1796d-3ecd-43b9-9345-f2778abc59e5',
+    'title': 'Canal View Prinsengracht',
     'type': 'house',
-    'price': 760,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/13.jpg',
+    'price': 833,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/1.jpg',
     'city': {
       'name': 'Cologne',
       'location': {
@@ -939,16 +954,16 @@ export const allOffers: IOffers[] = [
       'longitude': 6.935974,
       'zoom': 16
     },
-    'isFavorite': false,
-    'isPremium': false,
-    'rating': 1.6
+    'isFavorite': true,
+    'isPremium': true,
+    'rating': 1.5
   },
   {
-    'id': '1831d2ef-e7fe-4cb2-afb4-cdf320cd7b04',
-    'title': 'House in countryside',
+    'id': '03a1b1f9-8a5e-4386-8957-1ef3d4c84046',
+    'title': 'Loft Studio in the Central Area',
     'type': 'hotel',
-    'price': 350,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/8.jpg',
+    'price': 215,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/12.jpg',
     'city': {
       'name': 'Brussels',
       'location': {
@@ -964,14 +979,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 3.6
+    'rating': 4
   },
   {
-    'id': 'b2588414-94d5-4643-bf57-4c9713dca44f',
-    'title': 'Canal View Prinsengracht',
-    'type': 'house',
-    'price': 457,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/1.jpg',
+    'id': '5ab2378e-aac2-4f93-9fcc-678e1c7debda',
+    'title': 'Nice, cozy, warm big bed apartment',
+    'type': 'hotel',
+    'price': 252,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/11.jpg',
     'city': {
       'name': 'Brussels',
       'location': {
@@ -986,15 +1001,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': false,
-    'rating': 3.8
+    'isPremium': true,
+    'rating': 4.6
   },
   {
-    'id': '0003edce-62b0-4ad5-ac9e-abdbe5b8c84d',
-    'title': 'Penthouse, 4-5 rooms + 5 balconies',
-    'type': 'room',
-    'price': 209,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/1.jpg',
+    'id': '4e03de5e-5cf7-4beb-a73b-c4d642235bea',
+    'title': 'The Joshua Tree House',
+    'type': 'apartment',
+    'price': 371,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/7.jpg',
     'city': {
       'name': 'Brussels',
       'location': {
@@ -1009,15 +1024,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': false,
-    'rating': 2.1
+    'isPremium': true,
+    'rating': 3.6
   },
   {
-    'id': '4d721aa7-d685-4498-9a65-c3738c03508a',
-    'title': 'Nice, cozy, warm big bed apartment',
-    'type': 'hotel',
-    'price': 371,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/18.jpg',
+    'id': 'da9dfc33-6c77-4bb6-abbf-148240f3f113',
+    'title': 'Wood and stone place',
+    'type': 'apartment',
+    'price': 307,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/16.jpg',
     'city': {
       'name': 'Brussels',
       'location': {
@@ -1032,15 +1047,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': false,
-    'rating': 1.6
+    'isPremium': true,
+    'rating': 2.7
   },
   {
-    'id': 'a6ea64fa-5811-4704-9846-6dc75cc28803',
-    'title': 'Amazing and Extremely Central Flat',
-    'type': 'house',
-    'price': 352,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/19.jpg',
+    'id': '6ad97de2-707a-4f06-aeb2-1393befa7b16',
+    'title': 'Wood and stone place',
+    'type': 'hotel',
+    'price': 480,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/9.jpg',
     'city': {
       'name': 'Brussels',
       'location': {
@@ -1055,15 +1070,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': false,
-    'rating': 4.6
+    'isPremium': true,
+    'rating': 5
   },
   {
-    'id': '8b8b1cb8-64f2-4226-9039-1cfacf2a12f7',
-    'title': 'The Joshua Tree House',
-    'type': 'apartment',
-    'price': 464,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/20.jpg',
+    'id': '08d3a0fe-66f2-423d-907a-ad1180d1862c',
+    'title': 'Perfectly located Castro',
+    'type': 'house',
+    'price': 286,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/13.jpg',
     'city': {
       'name': 'Brussels',
       'location': {
@@ -1078,15 +1093,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': true,
-    'rating': 1.8
+    'isPremium': false,
+    'rating': 1.7
   },
   {
-    'id': '3b1934f4-5e91-4bd1-8562-c2bd15917e42',
-    'title': 'Penthouse, 4-5 rooms + 5 balconies',
-    'type': 'room',
-    'price': 234,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/11.jpg',
+    'id': 'aef51309-eb29-4ca7-a982-056160fcb238',
+    'title': 'The Joshua Tree House',
+    'type': 'hotel',
+    'price': 182,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/10.jpg',
     'city': {
       'name': 'Brussels',
       'location': {
@@ -1102,14 +1117,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 4.3
+    'rating': 3.8
   },
   {
-    'id': 'baab0565-ad6b-47fa-9da0-e64e295a30db',
-    'title': 'Nice, cozy, warm big bed apartment',
-    'type': 'house',
-    'price': 920,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/11.jpg',
+    'id': 'ed0bdef0-48e0-4881-b4bb-b00fe0bf1e5c',
+    'title': 'The Pondhouse - A Magical Place',
+    'type': 'apartment',
+    'price': 350,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/17.jpg',
     'city': {
       'name': 'Brussels',
       'location': {
@@ -1125,14 +1140,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': false,
-    'rating': 1.6
+    'rating': 4.2
   },
   {
-    'id': '3e2e90b5-0950-4c70-bd12-76c12db7fe9f',
-    'title': 'Loft Studio in the Central Area',
-    'type': 'room',
-    'price': 212,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/5.jpg',
+    'id': '83094029-dba8-487d-b2f0-28aebd3e36a3',
+    'title': 'Nice, cozy, warm big bed apartment',
+    'type': 'hotel',
+    'price': 464,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/11.jpg',
     'city': {
       'name': 'Brussels',
       'location': {
@@ -1147,15 +1162,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': false,
-    'rating': 2.4
+    'isPremium': true,
+    'rating': 4.2
   },
   {
-    'id': '49a68c32-f2f5-4212-93ab-fde1a24bc636',
-    'title': 'House in countryside',
-    'type': 'room',
-    'price': 171,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/8.jpg',
+    'id': '64f6c730-5edf-49c5-9013-2c092828d671',
+    'title': 'Canal View Prinsengracht',
+    'type': 'apartment',
+    'price': 227,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/20.jpg',
     'city': {
       'name': 'Brussels',
       'location': {
@@ -1170,15 +1185,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': true,
-    'rating': 1.8
+    'isPremium': false,
+    'rating': 1.6
   },
   {
-    'id': '5f7b7d5f-0825-402c-b204-7ef814a5170b',
-    'title': 'The Joshua Tree House',
+    'id': 'ea8dfb06-c1d1-4737-b68f-90b45ecbd32b',
+    'title': 'Canal View Prinsengracht',
     'type': 'room',
-    'price': 168,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/18.jpg',
+    'price': 181,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/19.jpg',
     'city': {
       'name': 'Brussels',
       'location': {
@@ -1193,15 +1208,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': true,
-    'rating': 2.4
+    'isPremium': false,
+    'rating': 4.9
   },
   {
-    'id': '6b784dc5-fba4-42b6-b54c-972f952d02c1',
-    'title': 'Amazing and Extremely Central Flat',
+    'id': 'bd2078bd-d093-49de-90e4-936c4ae7d182',
+    'title': 'The house among olive ',
     'type': 'room',
-    'price': 122,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/17.jpg',
+    'price': 135,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/5.jpg',
     'city': {
       'name': 'Brussels',
       'location': {
@@ -1216,15 +1231,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': false,
-    'rating': 1.5
+    'isPremium': true,
+    'rating': 4.7
   },
   {
-    'id': 'ab79fc4a-bbc6-4852-94e4-fe2ff17e08a0',
-    'title': 'Canal View Prinsengracht',
-    'type': 'hotel',
-    'price': 460,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/20.jpg',
+    'id': 'd6ef9c71-70e0-4e76-8c9c-397cff05c814',
+    'title': 'Loft Studio in the Central Area',
+    'type': 'apartment',
+    'price': 442,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/5.jpg',
     'city': {
       'name': 'Brussels',
       'location': {
@@ -1240,14 +1255,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': false,
-    'rating': 4.6
+    'rating': 4.9
   },
   {
-    'id': '4a321918-eb19-455a-b05b-130b9a7b4e1b',
-    'title': 'The Joshua Tree House',
-    'type': 'hotel',
-    'price': 251,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/10.jpg',
+    'id': 'afff6435-7b4f-46b0-a974-e311a6927578',
+    'title': 'Tile House',
+    'type': 'apartment',
+    'price': 101,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/18.jpg',
     'city': {
       'name': 'Brussels',
       'location': {
@@ -1263,14 +1278,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': false,
-    'rating': 3.7
+    'rating': 4
   },
   {
-    'id': 'bb9640a2-0133-412d-becc-f3a504ef664d',
-    'title': 'The Joshua Tree House',
-    'type': 'room',
-    'price': 202,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/3.jpg',
+    'id': 'd313a56c-2109-496d-ba25-d53c86661e0a',
+    'title': 'Wood and stone place',
+    'type': 'hotel',
+    'price': 274,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/5.jpg',
     'city': {
       'name': 'Brussels',
       'location': {
@@ -1286,14 +1301,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': false,
-    'rating': 4.6
+    'rating': 2.5
   },
   {
-    'id': 'd0a80090-3d20-4309-8a41-3f12c913e4a4',
-    'title': 'Penthouse, 4-5 rooms + 5 balconies',
+    'id': '1bc82016-586c-4e54-b716-cb9b5c724d38',
+    'title': 'Nice, cozy, warm big bed apartment',
     'type': 'apartment',
-    'price': 174,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/18.jpg',
+    'price': 115,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/12.jpg',
     'city': {
       'name': 'Brussels',
       'location': {
@@ -1309,14 +1324,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': false,
-    'rating': 2.1
+    'rating': 3.6
   },
   {
-    'id': 'bdcd1f8e-90e9-42f4-a20f-779d7c754be8',
-    'title': 'Wood and stone place',
+    'id': '7315cd4a-d326-4c80-9efc-38a50a505d1f',
+    'title': 'Amazing and Extremely Central Flat',
     'type': 'apartment',
-    'price': 273,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/12.jpg',
+    'price': 373,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/13.jpg',
     'city': {
       'name': 'Brussels',
       'location': {
@@ -1331,15 +1346,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': false,
-    'rating': 3.1
+    'isPremium': true,
+    'rating': 4.7
   },
   {
-    'id': '5eb82d26-000a-4913-9eb8-2e54113a7598',
-    'title': 'Wood and stone place',
-    'type': 'room',
-    'price': 193,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/1.jpg',
+    'id': '10f71979-6e98-49b1-969d-fa526fe92395',
+    'title': 'Tile House',
+    'type': 'house',
+    'price': 351,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/15.jpg',
     'city': {
       'name': 'Brussels',
       'location': {
@@ -1355,14 +1370,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 4.6
+    'rating': 3.1
   },
   {
-    'id': '314bbf87-1cc7-48df-9161-bd1625458d62',
-    'title': 'Canal View Prinsengracht',
+    'id': '7e710e92-c36a-45da-835e-9130aac6b37d',
+    'title': 'Nice, cozy, warm big bed apartment',
     'type': 'hotel',
-    'price': 166,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/14.jpg',
+    'price': 101,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/17.jpg',
     'city': {
       'name': 'Brussels',
       'location': {
@@ -1377,15 +1392,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': false,
-    'rating': 1.9
+    'isPremium': true,
+    'rating': 1.3
   },
   {
-    'id': 'ac570e75-6aba-42ac-ae84-2db22524e70e',
-    'title': 'Canal View Prinsengracht',
-    'type': 'apartment',
-    'price': 334,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/2.jpg',
+    'id': '5fb07462-6b5a-4013-b739-779d7a644f06',
+    'title': 'The house among olive ',
+    'type': 'hotel',
+    'price': 225,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/16.jpg',
     'city': {
       'name': 'Brussels',
       'location': {
@@ -1399,15 +1414,15 @@ export const allOffers: IOffers[] = [
       'longitude': 4.363696999999999,
       'zoom': 16
     },
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': true,
-    'rating': 4.7
+    'rating': 1.3
   },
   {
-    'id': 'f64a6ae4-6617-41de-9e71-5ce578e12cb9',
-    'title': 'Amazing and Extremely Central Flat',
-    'type': 'room',
-    'price': 156,
+    'id': 'bfb511b7-ab6d-421a-9235-d1381a61aea3',
+    'title': 'Canal View Prinsengracht',
+    'type': 'hotel',
+    'price': 416,
     'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/8.jpg',
     'city': {
       'name': 'Amsterdam',
@@ -1423,15 +1438,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': false,
-    'rating': 4.7
+    'isPremium': true,
+    'rating': 1.2
   },
   {
-    'id': 'd61e14a9-50cf-44a1-b4e3-ef7f5398afe5',
-    'title': 'Wood and stone place',
-    'type': 'room',
-    'price': 116,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/8.jpg',
+    'id': '35ce7d0d-2e43-4b61-ade0-3a7b6d44ee54',
+    'title': 'The Joshua Tree House',
+    'type': 'apartment',
+    'price': 380,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/16.jpg',
     'city': {
       'name': 'Amsterdam',
       'location': {
@@ -1446,15 +1461,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': true,
-    'rating': 4.4
+    'isPremium': false,
+    'rating': 3.2
   },
   {
-    'id': 'e235e3d7-88b0-419f-adf9-57b8a303dfa4',
-    'title': 'Beautiful & luxurious apartment at great location',
-    'type': 'room',
-    'price': 227,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/9.jpg',
+    'id': '20b1eb3d-3b43-4a9d-8165-ea831f52b1df',
+    'title': 'The Joshua Tree House',
+    'type': 'hotel',
+    'price': 176,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/18.jpg',
     'city': {
       'name': 'Amsterdam',
       'location': {
@@ -1469,15 +1484,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': false,
-    'rating': 3.1
+    'isPremium': true,
+    'rating': 4.4
   },
   {
-    'id': '5142502c-a038-4c58-9f54-0bd0f80188d6',
-    'title': 'Tile House',
+    'id': '18aa30f7-28b5-4e7e-93f5-ca4092a33a96',
+    'title': 'The Pondhouse - A Magical Place',
     'type': 'hotel',
-    'price': 323,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/10.jpg',
+    'price': 372,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/19.jpg',
     'city': {
       'name': 'Amsterdam',
       'location': {
@@ -1492,15 +1507,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': false,
-    'rating': 1.9
+    'isPremium': true,
+    'rating': 3.1
   },
   {
-    'id': '52d681a0-110a-44b7-8759-e44667ba34f8',
+    'id': 'd9132b69-db26-4051-98e6-46e9d7821fa1',
     'title': 'The house among olive ',
-    'type': 'hotel',
-    'price': 369,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/12.jpg',
+    'type': 'apartment',
+    'price': 467,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/4.jpg',
     'city': {
       'name': 'Amsterdam',
       'location': {
@@ -1515,15 +1530,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': true,
-    'rating': 3.6
+    'isPremium': false,
+    'rating': 2.1
   },
   {
-    'id': '86123c29-3b87-4908-a9ca-1523306cd546',
-    'title': 'The house among olive ',
+    'id': 'dc524e7d-eddb-4e64-9d5f-a70cc8d01896',
+    'title': 'Loft Studio in the Central Area',
     'type': 'apartment',
-    'price': 411,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/18.jpg',
+    'price': 210,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/11.jpg',
     'city': {
       'name': 'Amsterdam',
       'location': {
@@ -1538,15 +1553,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': false,
-    'rating': 2.6
+    'isPremium': true,
+    'rating': 3.1
   },
   {
-    'id': '1dfd3908-5423-4ef3-8417-7846dc9f46d8',
-    'title': 'The Joshua Tree House',
-    'type': 'room',
-    'price': 221,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/20.jpg',
+    'id': '8f6824ee-c7af-439d-9544-9f4196185020',
+    'title': 'Tile House',
+    'type': 'apartment',
+    'price': 414,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/10.jpg',
     'city': {
       'name': 'Amsterdam',
       'location': {
@@ -1561,15 +1576,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': true,
-    'rating': 4.9
+    'isPremium': false,
+    'rating': 1.1
   },
   {
-    'id': '63cc3a10-ffec-41bd-9974-9dc3d5218f96',
-    'title': 'Canal View Prinsengracht',
-    'type': 'house',
-    'price': 718,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/12.jpg',
+    'id': '5d49fb01-1e73-4532-984c-97efed699ba0',
+    'title': 'The Pondhouse - A Magical Place',
+    'type': 'room',
+    'price': 260,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/5.jpg',
     'city': {
       'name': 'Amsterdam',
       'location': {
@@ -1584,15 +1599,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': true,
-    'rating': 3.9
+    'isPremium': false,
+    'rating': 3.8
   },
   {
-    'id': '6a33f80b-8765-43ca-bc18-51d83906fb52',
-    'title': 'The Pondhouse - A Magical Place',
-    'type': 'hotel',
-    'price': 455,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/1.jpg',
+    'id': '30d78a7b-efe6-4428-8e45-ca8ada79e3f4',
+    'title': 'Wood and stone place',
+    'type': 'room',
+    'price': 246,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/14.jpg',
     'city': {
       'name': 'Amsterdam',
       'location': {
@@ -1608,14 +1623,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 3.2
+    'rating': 3.8
   },
   {
-    'id': '8e3c158a-15c6-47e3-967e-4f222a799da7',
-    'title': 'Amazing and Extremely Central Flat',
-    'type': 'apartment',
-    'price': 491,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/17.jpg',
+    'id': '714cd6bc-34a5-4af9-be64-ead763476b02',
+    'title': 'Wood and stone place',
+    'type': 'hotel',
+    'price': 152,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/19.jpg',
     'city': {
       'name': 'Amsterdam',
       'location': {
@@ -1630,15 +1645,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': false,
-    'rating': 1.8
+    'isPremium': true,
+    'rating': 4.7
   },
   {
-    'id': '3dc54739-1755-40d9-9db3-dadc3018c023',
-    'title': 'Wood and stone place',
-    'type': 'room',
-    'price': 289,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/17.jpg',
+    'id': '7d714075-9ed6-495d-a6a8-0d1f5dd7a087',
+    'title': 'House in countryside',
+    'type': 'house',
+    'price': 777,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/14.jpg',
     'city': {
       'name': 'Amsterdam',
       'location': {
@@ -1653,15 +1668,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': false,
-    'rating': 4.5
+    'isPremium': true,
+    'rating': 2.6
   },
   {
-    'id': '55dc6418-5be6-4dd1-b72a-2ccaf72abdd2',
-    'title': 'Canal View Prinsengracht',
-    'type': 'house',
-    'price': 338,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/13.jpg',
+    'id': 'ce9ba409-2778-4909-b4b7-27ded756ee13',
+    'title': 'Perfectly located Castro',
+    'type': 'apartment',
+    'price': 382,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/6.jpg',
     'city': {
       'name': 'Amsterdam',
       'location': {
@@ -1677,14 +1692,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 1.6
+    'rating': 2.2
   },
   {
-    'id': '11105088-00bf-4155-8715-61ba7975d049',
-    'title': 'Loft Studio in the Central Area',
+    'id': 'b31d56ac-5518-458d-b6de-7fbcfdb3abb2',
+    'title': 'Tile House',
     'type': 'hotel',
-    'price': 357,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/1.jpg',
+    'price': 284,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/11.jpg',
     'city': {
       'name': 'Amsterdam',
       'location': {
@@ -1700,14 +1715,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 2.1
+    'rating': 3.1
   },
   {
-    'id': '2b5029e8-4c0a-4705-8e38-72dff36aeadf',
-    'title': 'The house among olive ',
-    'type': 'room',
-    'price': 233,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/13.jpg',
+    'id': 'fe853a9a-9b24-444a-a72a-6bfad92507b7',
+    'title': 'Perfectly located Castro',
+    'type': 'apartment',
+    'price': 387,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/19.jpg',
     'city': {
       'name': 'Amsterdam',
       'location': {
@@ -1723,14 +1738,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 2.3
+    'rating': 1.8
   },
   {
-    'id': '202adc2d-6707-41fa-9f54-566a26b038f8',
-    'title': 'Amazing and Extremely Central Flat',
-    'type': 'apartment',
-    'price': 304,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/2.jpg',
+    'id': '6c181c36-3d39-413f-bc65-562e18731d54',
+    'title': 'Waterfront with extraordinary view',
+    'type': 'house',
+    'price': 807,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/9.jpg',
     'city': {
       'name': 'Amsterdam',
       'location': {
@@ -1746,14 +1761,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 3.2
+    'rating': 3.5
   },
   {
-    'id': '2f7d6726-941b-43bb-87ba-c1373ac78dad',
-    'title': 'Penthouse, 4-5 rooms + 5 balconies',
-    'type': 'apartment',
-    'price': 446,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/12.jpg',
+    'id': 'df39e625-e79e-4281-aa6a-27760f097c5f',
+    'title': 'House in countryside',
+    'type': 'hotel',
+    'price': 360,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/1.jpg',
     'city': {
       'name': 'Amsterdam',
       'location': {
@@ -1769,14 +1784,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 3
+    'rating': 2.9
   },
   {
-    'id': '70377f5c-d69c-4a3f-a504-f32b0d633190',
-    'title': 'Penthouse, 4-5 rooms + 5 balconies',
-    'type': 'house',
-    'price': 158,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/5.jpg',
+    'id': '80c0b8c4-0098-4af8-857e-3bfc62c02ad8',
+    'title': 'Tile House',
+    'type': 'room',
+    'price': 286,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/7.jpg',
     'city': {
       'name': 'Amsterdam',
       'location': {
@@ -1792,14 +1807,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 2.3
+    'rating': 3.3
   },
   {
-    'id': 'ca18a572-1004-401d-b819-64a2fe417ff3',
-    'title': 'Loft Studio in the Central Area',
-    'type': 'hotel',
-    'price': 445,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/3.jpg',
+    'id': '84800ad9-5770-40fb-b189-4724a3bd72cd',
+    'title': 'Beautiful & luxurious apartment at great location',
+    'type': 'house',
+    'price': 640,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/9.jpg',
     'city': {
       'name': 'Amsterdam',
       'location': {
@@ -1814,15 +1829,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': true,
-    'rating': 4.4
+    'isPremium': false,
+    'rating': 3.1
   },
   {
-    'id': 'e7152f0c-1086-40d5-bf4c-800fbeba5115',
-    'title': 'Tile House',
-    'type': 'apartment',
-    'price': 150,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/19.jpg',
+    'id': '93d571bb-8b21-4409-b86f-8cec92420bea',
+    'title': 'The Pondhouse - A Magical Place',
+    'type': 'hotel',
+    'price': 252,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/11.jpg',
     'city': {
       'name': 'Amsterdam',
       'location': {
@@ -1838,14 +1853,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 2
+    'rating': 1.1
   },
   {
-    'id': '639fc3e2-bf94-4504-b222-387b084cc409',
-    'title': 'Perfectly located Castro',
-    'type': 'house',
-    'price': 746,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/7.jpg',
+    'id': '58577d01-0c2f-40af-a446-764bc8858516',
+    'title': 'Canal View Prinsengracht',
+    'type': 'hotel',
+    'price': 243,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/15.jpg',
     'city': {
       'name': 'Amsterdam',
       'location': {
@@ -1859,16 +1874,16 @@ export const allOffers: IOffers[] = [
       'longitude': 4.886976,
       'zoom': 16
     },
-    'isFavorite': false,
-    'isPremium': true,
-    'rating': 3.9
+    'isFavorite': true,
+    'isPremium': false,
+    'rating': 3.3
   },
   {
-    'id': 'efbd7809-8467-4499-a7f4-9ec260d05e67',
-    'title': 'Perfectly located Castro',
-    'type': 'house',
-    'price': 419,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/4.jpg',
+    'id': '91644bc4-1b78-4a7f-88b3-174577dfc93d',
+    'title': 'House in countryside',
+    'type': 'hotel',
+    'price': 173,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/15.jpg',
     'city': {
       'name': 'Hamburg',
       'location': {
@@ -1883,15 +1898,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': true,
-    'rating': 3.2
+    'isPremium': false,
+    'rating': 1.5
   },
   {
-    'id': 'd3166b3c-de79-48d7-a5dc-5ee3bb59d127',
-    'title': 'Loft Studio in the Central Area',
-    'type': 'apartment',
-    'price': 270,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/16.jpg',
+    'id': '47725134-203d-4fc8-a32b-629a466d1398',
+    'title': 'House in countryside',
+    'type': 'house',
+    'price': 294,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/15.jpg',
     'city': {
       'name': 'Hamburg',
       'location': {
@@ -1907,14 +1922,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 4.1
+    'rating': 1.5
   },
   {
-    'id': '271ad601-a00e-4e98-bc38-7b28b9f8d500',
-    'title': 'Nice, cozy, warm big bed apartment',
-    'type': 'house',
-    'price': 722,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/14.jpg',
+    'id': '2073d6b3-021f-4170-a70b-8f5412c0e998',
+    'title': 'Beautiful & luxurious apartment at great location',
+    'type': 'apartment',
+    'price': 169,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/16.jpg',
     'city': {
       'name': 'Hamburg',
       'location': {
@@ -1929,15 +1944,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': false,
-    'rating': 3
+    'isPremium': true,
+    'rating': 1.4
   },
   {
-    'id': '00aeaa6b-79f8-4dce-8b79-bbb5d4d615b5',
-    'title': 'Wood and stone place',
+    'id': '54106301-3b15-45b7-8d21-c8b7699f9ceb',
+    'title': 'House in countryside',
     'type': 'hotel',
-    'price': 338,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/16.jpg',
+    'price': 110,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/7.jpg',
     'city': {
       'name': 'Hamburg',
       'location': {
@@ -1953,14 +1968,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': false,
-    'rating': 1.7
+    'rating': 3.3
   },
   {
-    'id': 'edacb551-4ec6-4a71-97fb-72d0bf065e8e',
+    'id': '625bde74-9bb0-43a2-b93c-36eadc68e131',
     'title': 'The Joshua Tree House',
-    'type': 'room',
-    'price': 169,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/6.jpg',
+    'type': 'house',
+    'price': 449,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/1.jpg',
     'city': {
       'name': 'Hamburg',
       'location': {
@@ -1975,15 +1990,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': true,
-    'rating': 1.4
+    'isPremium': false,
+    'rating': 1.1
   },
   {
-    'id': 'e3eb3e86-b159-4955-a668-c23b8b55ed60',
-    'title': 'The Pondhouse - A Magical Place',
-    'type': 'room',
-    'price': 284,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/16.jpg',
+    'id': '7849fd4b-b440-4598-a74b-a1d0ce28656a',
+    'title': 'Waterfront with extraordinary view',
+    'type': 'apartment',
+    'price': 376,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/18.jpg',
     'city': {
       'name': 'Hamburg',
       'location': {
@@ -1998,14 +2013,14 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': false,
-    'rating': 2.3
+    'isPremium': true,
+    'rating': 2.9
   },
   {
-    'id': '010d8f96-34a6-456d-8441-e579385e3bed',
-    'title': 'Loft Studio in the Central Area',
-    'type': 'hotel',
-    'price': 396,
+    'id': 'df52ec23-70d3-4988-a066-8796e9c4035b',
+    'title': 'The Joshua Tree House',
+    'type': 'house',
+    'price': 689,
     'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/5.jpg',
     'city': {
       'name': 'Hamburg',
@@ -2021,15 +2036,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': true,
-    'rating': 4.8
+    'isPremium': false,
+    'rating': 3.8
   },
   {
-    'id': '78596cce-e19b-4232-9ea1-9d45eb786758',
-    'title': 'Penthouse, 4-5 rooms + 5 balconies',
-    'type': 'hotel',
-    'price': 225,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/7.jpg',
+    'id': '1aa673d7-8057-4b02-86e3-41686e7b35d4',
+    'title': 'The Joshua Tree House',
+    'type': 'house',
+    'price': 770,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/10.jpg',
     'city': {
       'name': 'Hamburg',
       'location': {
@@ -2045,14 +2060,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': false,
-    'rating': 3.6
+    'rating': 1.1
   },
   {
-    'id': '3480ef7b-a999-4e67-83c3-808ec1f6a0b5',
-    'title': 'The Pondhouse - A Magical Place',
-    'type': 'apartment',
-    'price': 233,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/14.jpg',
+    'id': '6644d315-3d00-4633-a77e-5c4fdd130bf7',
+    'title': 'Wood and stone place',
+    'type': 'room',
+    'price': 266,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/12.jpg',
     'city': {
       'name': 'Hamburg',
       'location': {
@@ -2068,14 +2083,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 1.3
+    'rating': 2.5
   },
   {
-    'id': '5a9758ef-850c-40d4-a241-092b9436a0f9',
-    'title': 'House in countryside',
-    'type': 'apartment',
-    'price': 392,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/12.jpg',
+    'id': 'cc77cc59-ed28-4488-96f8-20428b38813a',
+    'title': 'The house among olive ',
+    'type': 'room',
+    'price': 153,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/1.jpg',
     'city': {
       'name': 'Hamburg',
       'location': {
@@ -2091,14 +2106,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 4.6
+    'rating': 4.2
   },
   {
-    'id': '6f9a2232-1347-4cf3-b5c2-f485aaa3e8f2',
-    'title': 'Amazing and Extremely Central Flat',
-    'type': 'apartment',
-    'price': 178,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/3.jpg',
+    'id': '7644a191-6e6e-415a-8c36-206c37e6f521',
+    'title': 'The Joshua Tree House',
+    'type': 'hotel',
+    'price': 348,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/11.jpg',
     'city': {
       'name': 'Hamburg',
       'location': {
@@ -2114,14 +2129,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': false,
-    'rating': 1.9
+    'rating': 3.9
   },
   {
-    'id': '71880ffd-14aa-4da1-8a70-88cbed0bae4f',
-    'title': 'Waterfront with extraordinary view',
-    'type': 'house',
-    'price': 531,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/16.jpg',
+    'id': '677fe705-b2ee-4b8d-9d1a-344e9e169971',
+    'title': 'Beautiful & luxurious apartment at great location',
+    'type': 'apartment',
+    'price': 244,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/19.jpg',
     'city': {
       'name': 'Hamburg',
       'location': {
@@ -2136,15 +2151,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': false,
-    'rating': 2.5
+    'isPremium': true,
+    'rating': 4.2
   },
   {
-    'id': 'f99dc96c-2943-41ce-84d8-3a2c94c3fc50',
-    'title': 'Perfectly located Castro',
-    'type': 'apartment',
-    'price': 456,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/6.jpg',
+    'id': 'e50393fb-f0ea-4d5d-b2de-6b98890741da',
+    'title': 'Waterfront with extraordinary view',
+    'type': 'house',
+    'price': 816,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/11.jpg',
     'city': {
       'name': 'Hamburg',
       'location': {
@@ -2160,14 +2175,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': false,
-    'rating': 1.9
+    'rating': 3.3
   },
   {
-    'id': '6f385f13-262a-460b-86e8-38e24d28bede',
-    'title': 'House in countryside',
-    'type': 'room',
-    'price': 243,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/2.jpg',
+    'id': 'b6f11f94-ad3a-4407-b05f-2873fcc3a60c',
+    'title': 'Wood and stone place',
+    'type': 'apartment',
+    'price': 257,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/11.jpg',
     'city': {
       'name': 'Hamburg',
       'location': {
@@ -2182,15 +2197,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': false,
-    'rating': 4.3
+    'isPremium': true,
+    'rating': 4.6
   },
   {
-    'id': '5a37dde6-721d-433a-b11f-0d80c75eadb7',
-    'title': 'The house among olive ',
+    'id': '67920d7e-f769-4e3b-9c21-701bc412fb31',
+    'title': 'Canal View Prinsengracht',
     'type': 'hotel',
-    'price': 239,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/4.jpg',
+    'price': 431,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/12.jpg',
     'city': {
       'name': 'Hamburg',
       'location': {
@@ -2206,14 +2221,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 4.2
+    'rating': 2.6
   },
   {
-    'id': 'f7918526-256a-4ff7-9b82-30f5b32afba3',
-    'title': 'Waterfront with extraordinary view',
-    'type': 'apartment',
-    'price': 230,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/6.jpg',
+    'id': '6ae0738c-280e-4ae2-b390-749c8b6bf1eb',
+    'title': 'Nice, cozy, warm big bed apartment',
+    'type': 'room',
+    'price': 173,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/14.jpg',
     'city': {
       'name': 'Hamburg',
       'location': {
@@ -2229,14 +2244,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 4.1
+    'rating': 2.1
   },
   {
-    'id': '3df3c0d6-3f31-45c3-9990-9c083ab6840c',
-    'title': 'Tile House',
-    'type': 'hotel',
-    'price': 181,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/13.jpg',
+    'id': '88df2a75-ff03-496b-ace4-36730f7d664d',
+    'title': 'Amazing and Extremely Central Flat',
+    'type': 'house',
+    'price': 616,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/17.jpg',
     'city': {
       'name': 'Hamburg',
       'location': {
@@ -2251,15 +2266,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': false,
-    'rating': 4.1
+    'isPremium': true,
+    'rating': 2.7
   },
   {
-    'id': 'f1c4feb0-8399-40fc-8f3a-8a52da5e8941',
-    'title': 'Nice, cozy, warm big bed apartment',
+    'id': '9075c8b0-e45c-4b0f-94a9-3c9fea1fd570',
+    'title': 'Penthouse, 4-5 rooms + 5 balconies',
     'type': 'room',
-    'price': 276,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/17.jpg',
+    'price': 195,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/19.jpg',
     'city': {
       'name': 'Hamburg',
       'location': {
@@ -2274,15 +2289,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': true,
-    'rating': 2.7
+    'isPremium': false,
+    'rating': 3.4
   },
   {
-    'id': '5182e8eb-0bdc-4567-acaf-d3857c33be74',
-    'title': 'Tile House',
-    'type': 'house',
-    'price': 103,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/13.jpg',
+    'id': 'f4c076e9-0f3b-48f2-8825-d3fde0cdf6c1',
+    'title': 'Perfectly located Castro',
+    'type': 'apartment',
+    'price': 410,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/18.jpg',
     'city': {
       'name': 'Hamburg',
       'location': {
@@ -2298,14 +2313,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 3
+    'rating': 3.3
   },
   {
-    'id': '54999a92-bb3a-4478-9675-1d047159f75b',
-    'title': 'Waterfront with extraordinary view',
+    'id': 'b9ee3943-857c-48b7-8c71-0886c1e5a6b1',
+    'title': 'Nice, cozy, warm big bed apartment',
     'type': 'hotel',
-    'price': 324,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/1.jpg',
+    'price': 464,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/6.jpg',
     'city': {
       'name': 'Hamburg',
       'location': {
@@ -2319,16 +2334,16 @@ export const allOffers: IOffers[] = [
       'longitude': 9.999654000000001,
       'zoom': 16
     },
-    'isFavorite': false,
-    'isPremium': false,
-    'rating': 1.1
+    'isFavorite': true,
+    'isPremium': true,
+    'rating': 3.6
   },
   {
-    'id': 'ca61fa37-776f-445a-bb9d-07852cd8b915',
-    'title': 'The Pondhouse - A Magical Place',
-    'type': 'house',
-    'price': 593,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/13.jpg',
+    'id': '9bd2b6e2-0269-4ab4-9ab4-2e79cf1672e8',
+    'title': 'Beautiful & luxurious apartment at great location',
+    'type': 'apartment',
+    'price': 382,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/18.jpg',
     'city': {
       'name': 'Dusseldorf',
       'location': {
@@ -2343,15 +2358,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': true,
-    'rating': 4.5
+    'isPremium': false,
+    'rating': 2.6
   },
   {
-    'id': '1abb95c6-be66-4474-833e-e5a775520c7c',
-    'title': 'House in countryside',
-    'type': 'hotel',
-    'price': 272,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/3.jpg',
+    'id': '22ad76d7-b24b-4cb6-8443-4d4365da8fe1',
+    'title': 'The house among olive ',
+    'type': 'apartment',
+    'price': 342,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/5.jpg',
     'city': {
       'name': 'Dusseldorf',
       'location': {
@@ -2367,14 +2382,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 5
+    'rating': 4.7
   },
   {
-    'id': 'ca1018e3-5ccd-48bd-bcb9-c15bce1405b7',
-    'title': 'Canal View Prinsengracht',
-    'type': 'apartment',
-    'price': 430,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/4.jpg',
+    'id': 'a423bd07-ec7e-4bbd-b260-62cc3f8e2289',
+    'title': 'Perfectly located Castro',
+    'type': 'house',
+    'price': 974,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/11.jpg',
     'city': {
       'name': 'Dusseldorf',
       'location': {
@@ -2389,15 +2404,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': true,
-    'rating': 4.7
+    'isPremium': false,
+    'rating': 3.2
   },
   {
-    'id': 'c1f1261c-1c97-4a0a-90b4-ca44b617b3cd',
-    'title': 'House in countryside',
+    'id': '769a63cf-c81a-4944-bcd9-e40e97efdf0a',
+    'title': 'Wood and stone place',
     'type': 'house',
-    'price': 788,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/6.jpg',
+    'price': 133,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/2.jpg',
     'city': {
       'name': 'Dusseldorf',
       'location': {
@@ -2413,14 +2428,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 2.9
+    'rating': 1.7
   },
   {
-    'id': 'd97345c0-7fdc-4501-908b-32aea7d18b60',
-    'title': 'House in countryside',
-    'type': 'house',
-    'price': 458,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/13.jpg',
+    'id': 'c136861e-aa8f-4a82-90f4-af38b6ed2c88',
+    'title': 'Nice, cozy, warm big bed apartment',
+    'type': 'apartment',
+    'price': 210,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/4.jpg',
     'city': {
       'name': 'Dusseldorf',
       'location': {
@@ -2436,14 +2451,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': false,
-    'rating': 3.9
+    'rating': 1.9
   },
   {
-    'id': 'bcd66295-b71d-4cba-aa03-6619948c0d8a',
-    'title': 'Waterfront with extraordinary view',
-    'type': 'hotel',
-    'price': 443,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/12.jpg',
+    'id': '83c96836-016c-4cb8-b633-76d29f6d3569',
+    'title': 'House in countryside',
+    'type': 'room',
+    'price': 133,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/18.jpg',
     'city': {
       'name': 'Dusseldorf',
       'location': {
@@ -2458,15 +2473,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': false,
-    'rating': 4.4
+    'isPremium': true,
+    'rating': 1.1
   },
   {
-    'id': 'e05d5062-b5ad-4f4b-afda-417db0c6486d',
-    'title': 'House in countryside',
-    'type': 'hotel',
-    'price': 339,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/18.jpg',
+    'id': 'ddfad2f6-2129-4de7-8f5c-8a59d044f37c',
+    'title': 'Waterfront with extraordinary view',
+    'type': 'apartment',
+    'price': 365,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/6.jpg',
     'city': {
       'name': 'Dusseldorf',
       'location': {
@@ -2482,14 +2497,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': false,
-    'rating': 4.1
+    'rating': 3.6
   },
   {
-    'id': 'cd6e4d08-c63e-4856-a469-13c30ef61e12',
-    'title': 'Wood and stone place',
-    'type': 'room',
-    'price': 105,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/15.jpg',
+    'id': 'c6df62b2-f904-4b4b-a237-469f54ddd78e',
+    'title': 'Beautiful & luxurious apartment at great location',
+    'type': 'hotel',
+    'price': 151,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/20.jpg',
     'city': {
       'name': 'Dusseldorf',
       'location': {
@@ -2505,14 +2520,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': false,
-    'rating': 2.4
+    'rating': 3.2
   },
   {
-    'id': '44527728-5b9f-4774-a922-6fba1768fc93',
-    'title': 'Loft Studio in the Central Area',
-    'type': 'apartment',
-    'price': 424,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/10.jpg',
+    'id': 'adbee843-2214-418e-9a3e-0ac4b11c7d29',
+    'title': 'House in countryside',
+    'type': 'room',
+    'price': 299,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/5.jpg',
     'city': {
       'name': 'Dusseldorf',
       'location': {
@@ -2528,14 +2543,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 2
+    'rating': 2.4
   },
   {
-    'id': 'd8f38c5d-fb0f-42d0-96f1-98e36b1718a5',
-    'title': 'The Pondhouse - A Magical Place',
-    'type': 'room',
-    'price': 117,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/15.jpg',
+    'id': '425d8fdf-1282-4e85-882f-40ba886d570a',
+    'title': 'Canal View Prinsengracht',
+    'type': 'hotel',
+    'price': 341,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/8.jpg',
     'city': {
       'name': 'Dusseldorf',
       'location': {
@@ -2550,15 +2565,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': false,
-    'rating': 2.6
+    'isPremium': true,
+    'rating': 4.8
   },
   {
-    'id': '2df346d5-ee6f-467d-bc29-1d7ffbf0ef14',
-    'title': 'Penthouse, 4-5 rooms + 5 balconies',
-    'type': 'house',
-    'price': 291,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/12.jpg',
+    'id': 'b5b0d182-be6b-42eb-a640-555afe2b4db6',
+    'title': 'Nice, cozy, warm big bed apartment',
+    'type': 'room',
+    'price': 207,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/2.jpg',
     'city': {
       'name': 'Dusseldorf',
       'location': {
@@ -2573,15 +2588,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': false,
+    'isPremium': true,
     'rating': 1.2
   },
   {
-    'id': '0673e569-4284-451a-96d5-68656b697fe0',
-    'title': 'Tile House',
+    'id': '79813b99-e3f2-41e3-a361-7b2ed9b36564',
+    'title': 'Waterfront with extraordinary view',
     'type': 'hotel',
-    'price': 187,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/10.jpg',
+    'price': 341,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/14.jpg',
     'city': {
       'name': 'Dusseldorf',
       'location': {
@@ -2597,14 +2612,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 2.4
+    'rating': 1.6
   },
   {
-    'id': 'a7a8338a-7bc6-4e56-a564-193929384732',
-    'title': 'Nice, cozy, warm big bed apartment',
-    'type': 'room',
-    'price': 232,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/8.jpg',
+    'id': '33c0e404-5ff8-48e1-8d40-01b98433fa93',
+    'title': 'Wood and stone place',
+    'type': 'apartment',
+    'price': 444,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/16.jpg',
     'city': {
       'name': 'Dusseldorf',
       'location': {
@@ -2619,15 +2634,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': true,
+    'isPremium': false,
     'rating': 3
   },
   {
-    'id': '0e24b714-9846-4975-bec7-06cc942d0494',
-    'title': 'Beautiful & luxurious apartment at great location',
-    'type': 'apartment',
-    'price': 446,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/18.jpg',
+    'id': '3053f76b-e1fb-43d6-bd9a-5ed2cdd3eb64',
+    'title': 'The house among olive ',
+    'type': 'house',
+    'price': 156,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/4.jpg',
     'city': {
       'name': 'Dusseldorf',
       'location': {
@@ -2643,14 +2658,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 3.3
+    'rating': 1.4
   },
   {
-    'id': 'e212e6ca-f393-4462-a0c1-12c561bbed31',
-    'title': 'The house among olive ',
+    'id': '820379be-dbb5-4b82-94ce-163a21f830fb',
+    'title': 'Amazing and Extremely Central Flat',
     'type': 'house',
-    'price': 801,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/7.jpg',
+    'price': 388,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/13.jpg',
     'city': {
       'name': 'Dusseldorf',
       'location': {
@@ -2666,14 +2681,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': false,
-    'rating': 2.6
+    'rating': 2.5
   },
   {
-    'id': '6ec53c63-416a-47e3-8845-e4717185fa84',
-    'title': 'Waterfront with extraordinary view',
-    'type': 'hotel',
-    'price': 490,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/8.jpg',
+    'id': 'a63cf07f-8fbe-49ac-ae98-0b3538fb07c6',
+    'title': 'Amazing and Extremely Central Flat',
+    'type': 'house',
+    'price': 777,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/4.jpg',
     'city': {
       'name': 'Dusseldorf',
       'location': {
@@ -2688,15 +2703,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': true,
-    'rating': 1.4
+    'isPremium': false,
+    'rating': 1.8
   },
   {
-    'id': '143fa171-28fb-4548-a827-8c4dda675c59',
-    'title': 'Wood and stone place',
-    'type': 'apartment',
-    'price': 220,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/7.jpg',
+    'id': 'a7499a9a-eeb5-42c8-ad77-7720cdddd304',
+    'title': 'Penthouse, 4-5 rooms + 5 balconies',
+    'type': 'hotel',
+    'price': 478,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/2.jpg',
     'city': {
       'name': 'Dusseldorf',
       'location': {
@@ -2711,15 +2726,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': false,
-    'rating': 1.4
+    'isPremium': true,
+    'rating': 2.1
   },
   {
-    'id': '2dd400a0-7b36-406e-bccf-96ad1b7976c3',
-    'title': 'House in countryside',
-    'type': 'house',
-    'price': 906,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/7.jpg',
+    'id': '93280674-2d90-49e3-9bc8-7422a647a75c',
+    'title': 'Loft Studio in the Central Area',
+    'type': 'room',
+    'price': 106,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/14.jpg',
     'city': {
       'name': 'Dusseldorf',
       'location': {
@@ -2735,14 +2750,14 @@ export const allOffers: IOffers[] = [
     },
     'isFavorite': false,
     'isPremium': false,
-    'rating': 1.2
+    'rating': 2.5
   },
   {
-    'id': '64065ede-3efb-4d84-bce4-9afc5725de31',
-    'title': 'Amazing and Extremely Central Flat',
-    'type': 'hotel',
-    'price': 138,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/9.jpg',
+    'id': 'f1999d2f-c76d-4a29-ba5e-dc6c466bb441',
+    'title': 'Nice, cozy, warm big bed apartment',
+    'type': 'house',
+    'price': 754,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/1.jpg',
     'city': {
       'name': 'Dusseldorf',
       'location': {
@@ -2757,15 +2772,15 @@ export const allOffers: IOffers[] = [
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': true,
-    'rating': 4.1
+    'isPremium': false,
+    'rating': 3.5
   },
   {
-    'id': 'af1fd4c0-9810-42c7-a90e-c78413e58dbe',
-    'title': 'Amazing and Extremely Central Flat',
-    'type': 'apartment',
-    'price': 360,
-    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/3.jpg',
+    'id': '945a4242-7689-4c32-95ce-30bbc1d4dd3d',
+    'title': 'The Pondhouse - A Magical Place',
+    'type': 'house',
+    'price': 892,
+    'previewImage': 'https://14.design.htmlacademy.pro/static/hotel/1.jpg',
     'city': {
       'name': 'Dusseldorf',
       'location': {
@@ -2779,10 +2794,63 @@ export const allOffers: IOffers[] = [
       'longitude': 6.784314,
       'zoom': 16
     },
-    'isFavorite': false,
-    'isPremium': false,
-    'rating': 4.9
+    'isFavorite': true,
+    'isPremium': true,
+    'rating': 4.5
   }
 ];
 
-export const AMSTERDAM_OFFERS: IOffers[] = allOffers.filter((offers) => offers.city.name === 'Amsterdam');
+export const mockOfferExample: IFullOffer = {
+  'id': '6af6f711-c28d-4121-82cd-e0b462a27f00',
+  'title': 'Beautiful & luxurious studio at great location',
+  'type': 'apartment',
+  'price': 120,
+  'city': {
+    'name': 'Amsterdam',
+    'location': {
+      'latitude': 52.35514938496378,
+      'longitude': 4.673877537499948,
+      'zoom': 8
+    },
+  },
+  'location': {
+    'latitude': 52.35514938496378,
+    'longitude': 4.673877537499948,
+    'zoom': 8
+  },
+  'isFavorite': false,
+  'isPremium': false,
+  'rating': 4,
+  'description': 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+  'bedrooms': 3,
+  'goods': [
+    'Heating'
+  ],
+  'host': {
+    'name': 'Oliver Conner',
+    'avatarUrl': 'https://url-to-image/image.png',
+    'isPro': false
+  },
+  'images': [
+    'https://url-to-image/image.png'
+  ],
+  'maxAdults': 4
+};
+
+export const CITY_LIST = [
+  'Paris',
+  'Cologne',
+  'Brussels',
+  'Amsterdam',
+  'Hamburg',
+  'Dusseldorf'
+] as const;
+
+export enum CityOffer {
+  PARIS = 'Paris',
+  COLOGNE = 'Cologne',
+  BRUSSELS = 'Brussels',
+  AMSTERDAM = 'Amsterdam',
+  HAMBURG = 'Hamburg',
+  DUSSELDORF = 'Dusseldorf',
+}

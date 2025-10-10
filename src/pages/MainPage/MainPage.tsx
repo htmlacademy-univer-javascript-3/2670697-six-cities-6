@@ -1,10 +1,27 @@
-// import React from 'react';
-
-import CityPlaceCard from '../../components/CityPlaceCard';
-
-import { AMSTERDAM_OFFERS } from '../../MockData/allOffers';
+import { useState } from 'react';
+import OffersList from '../../components/OffersList';
+import CityList from '../../components/CityList';
+import { IBaseOffer, mockOffers } from '../../mocks/offers';
 
 function MainPage() {
+
+  const [isOpenSortList, setOpenSortList] = useState<string>('');
+  const [isChooseCity, setChooseCity] = useState<string>('Amsterdam');
+
+  const OFFERS_SORT_LIST: IBaseOffer[] = mockOffers.filter((offers) => offers.city.name === isChooseCity);
+  const offerCount: number = OFFERS_SORT_LIST.length;
+
+  const showSortList = () => {
+    if(isOpenSortList === '') {
+      setOpenSortList('places__options--opened');
+    }else {
+      setOpenSortList('');
+    }
+  };
+
+  const changeChooseCity = (chooseCity: string) => {
+    setChooseCity(chooseCity);
+  };
 
   return (
     <div className='page page--gray page--main'>
@@ -42,36 +59,7 @@ function MainPage() {
         <div className='tabs'>
           <section className='locations container'>
             <ul className='locations__list tabs__list'>
-              <li className='locations__item'>
-                <a className='locations__item-link tabs__item' href='#'>
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className='locations__item'>
-                <a className='locations__item-link tabs__item' href='#'>
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className='locations__item'>
-                <a className='locations__item-link tabs__item' href='#'>
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className='locations__item'>
-                <a className='locations__item-link tabs__item tabs__item--active'>
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className='locations__item'>
-                <a className='locations__item-link tabs__item' href='#'>
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className='locations__item'>
-                <a className='locations__item-link tabs__item' href='#'>
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
+              <CityList changeChooseCity={changeChooseCity} />
             </ul>
           </section>
         </div>
@@ -79,16 +67,21 @@ function MainPage() {
           <div className='cities__places-container container'>
             <section className='cities__places places'>
               <h2 className='visually-hidden'>Places</h2>
-              <b className='places__found'>312 places to stay in Amsterdam</b>
+              <b className='places__found'>{offerCount} places to stay in {isChooseCity}</b>
               <form className='places__sorting' action='#' method='get'>
                 <span className='places__sorting-caption'>Sort by</span>
-                <span className='places__sorting-type' tabIndex={0}>
-                  Popular
+                <span
+                  className='places__sorting-type'
+                  tabIndex={0}
+                  onClick={showSortList}
+                > Popular
                   <svg className='places__sorting-arrow' width='7' height='4'>
                     <use href='#icon-arrow-select'></use>
                   </svg>
                 </span>
-                <ul className='places__options places__options--custom places__options--opened'>
+                <ul
+                  className={`places__options places__options--custom ${isOpenSortList}`}
+                >
                   <li className='places__option places__option--active' tabIndex={0}>Popular</li>
                   <li className='places__option' tabIndex={0}>Price: low to high</li>
                   <li className='places__option' tabIndex={0}>Price: high to low</li>
@@ -96,15 +89,11 @@ function MainPage() {
                 </ul>
               </form>
               <div className='cities__places-list places__list tabs__content'>
-                {
-                  AMSTERDAM_OFFERS.map((offer) => (
-                    <CityPlaceCard
-                      key={offer.id}
-                      offer={offer}
-                    />
-                  ))
-                }
+                <OffersList
+                  offers={OFFERS_SORT_LIST}
+                />
               </div>
+
             </section>
             <div className='cities__right-section'>
               <section className='cities__map map'></section>
