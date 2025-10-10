@@ -55,7 +55,7 @@ function MainPage() {
         <div className='tabs'>
           <section className='locations container'>
             <ul className='locations__list tabs__list'>
-              <CityList changeChooseCity = {changeChooseCity}/>
+              <CityList changeChooseCity={changeChooseCity} />
             </ul>
           </section>
         </div>
@@ -86,8 +86,10 @@ function MainPage() {
               </form>
               <div className='cities__places-list places__list tabs__content'>
                 <OffersList
-                  offers = {OFFERS_SORT_LIST}/>
+                  offers={OFFERS_SORT_LIST}
+                />
               </div>
+
             </section>
             <div className='cities__right-section'>
               <section className='cities__map map'></section>

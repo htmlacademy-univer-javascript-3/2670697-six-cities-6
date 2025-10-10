@@ -57,7 +57,7 @@ export const mockOffers: IBaseOffer[] = [
       "longitude": 2.342499,
       "zoom": 16
     },
-    "isFavorite": false,
+    "isFavorite": true,
     "isPremium": false,
     "rating": 3.6
   },
@@ -517,7 +517,7 @@ export const mockOffers: IBaseOffer[] = [
       "longitude": 6.961974,
       "zoom": 16
     },
-    "isFavorite": false,
+    "isFavorite": true,
     "isPremium": true,
     "rating": 4.8
   },
@@ -954,7 +954,7 @@ export const mockOffers: IBaseOffer[] = [
       "longitude": 6.935974,
       "zoom": 16
     },
-    "isFavorite": false,
+    "isFavorite": true,
     "isPremium": true,
     "rating": 1.5
   },
@@ -1414,7 +1414,7 @@ export const mockOffers: IBaseOffer[] = [
       "longitude": 4.363696999999999,
       "zoom": 16
     },
-    "isFavorite": false,
+    "isFavorite": true,
     "isPremium": true,
     "rating": 1.3
   },
@@ -1874,7 +1874,7 @@ export const mockOffers: IBaseOffer[] = [
       "longitude": 4.886976,
       "zoom": 16
     },
-    "isFavorite": false,
+    "isFavorite": true,
     "isPremium": false,
     "rating": 3.3
   },
@@ -2334,7 +2334,7 @@ export const mockOffers: IBaseOffer[] = [
       "longitude": 9.999654000000001,
       "zoom": 16
     },
-    "isFavorite": false,
+    "isFavorite": true,
     "isPremium": true,
     "rating": 3.6
   },
@@ -2794,7 +2794,7 @@ export const mockOffers: IBaseOffer[] = [
       "longitude": 6.784314,
       "zoom": 16
     },
-    "isFavorite": false,
+    "isFavorite": true,
     "isPremium": true,
     "rating": 4.5
   }
@@ -2837,11 +2837,18 @@ export const mockOfferExample: IFullOffer = {
   "maxAdults": 4
 };
 
-export const AMSTERDAM_OFFERS: IBaseOffer[] = mockOffers.filter((offers) => offers.city.name === 'Amsterdam');
+export const CITY_LIST: string[] = [
+  'Paris',
+  'Cologne',
+  'Brussels',
+  'Amsterdam',
+  'Hamburg',
+  'Dusseldorf'
+] as const;
 
 export enum CityOffer {
   PARIS = 'Paris',
-  COLOGNE =  'Cologne',
+  COLOGNE = 'Cologne',
   BRUSSELS = 'Brussels',
   AMSTERDAM = 'Amsterdam',
   HAMBURG = 'Hamburg',

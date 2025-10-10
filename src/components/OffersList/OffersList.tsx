@@ -9,14 +9,15 @@ const OffersList = ({ offers }: OffersListProps) => {
 
   return (
     <>
-    {
-      offers.map((offer) => (
-        <CityPlaceCard
-          key={offer.id}
-          offer={offer}
-        />
-      ))
-    }
+      {
+        offers.map((offer) => (
+          <CityPlaceCard
+            key={offer.id}
+            offer={offer}
+            pageName={'MainPage'}
+          />
+        ))
+      }
     </>
   );
 }

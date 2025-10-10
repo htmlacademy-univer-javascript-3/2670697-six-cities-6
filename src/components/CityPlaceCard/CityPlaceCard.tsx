@@ -4,9 +4,10 @@ import { IBaseOffer } from '../../mocks/offers';
 
 interface CityPlaceCardProps {
   offer: IBaseOffer;
+  pageName: string;
 }
 
-const CityPlaceCard = ({ offer }: CityPlaceCardProps) => {
+const CityPlaceCard = ({ offer, pageName }: CityPlaceCardProps) => {
 
   const [isHover, setHover] = useState<boolean>(false);
 
@@ -20,9 +21,17 @@ const CityPlaceCard = ({ offer }: CityPlaceCardProps) => {
     setHover(false);
   }
 
+  const styleForMainPage = (pageName === 'MainPage') ? 'cities' : '';
+  const styleForFavoritesPage = (pageName === 'FavoritesPage') ? 'favorites' : '';
+
+  const widthForImg = (pageName === 'MainPage') ? '260' : '150';
+  const heightForImg = (pageName === 'MainPage') ? '200' : '110';
+
+  const chooseStyleName = styleForMainPage || styleForFavoritesPage;
+
   return (
     <article 
-      className='cities__card place-card'
+      className={`${chooseStyleName}__card place-card`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -34,18 +43,30 @@ const CityPlaceCard = ({ offer }: CityPlaceCardProps) => {
         )
       }
 
-      <div className='cities__image-wrapper place-card__image-wrapper'>
+      <div className={`${chooseStyleName}__image-wrapper place-card__image-wrapper`}>
         <a href='#'>
-          <img className='place-card__image' src={offer.previewImage} width='260' height='200' alt='Place image' />
+          <img 
+            className='place-card__image' 
+            src={offer.previewImage} 
+            width={widthForImg} 
+            height={heightForImg} 
+            alt='Place image' 
+          />
         </a>
       </div>
-      <div className='place-card__info'>
+      <div className={`${(styleForFavoritesPage) ? 'favorites__card-info': ''} place-card__info`}>
         <div className='place-card__price-wrapper'>
           <div className='place-card__price'>
             <b className='place-card__price-value'>&euro;{offer.price}</b>
             <span className='place-card__price-text'>&#47;&nbsp;night</span>
           </div>
-          <button className='place-card__bookmark-button button' type='button'>
+          <button 
+            className={`
+              place-card__bookmark-button 
+              ${(offer.isFavorite) ? 'place-card__bookmark-button--active': ''}
+              button`} 
+            type='button'
+          >
             <svg className='place-card__bookmark-icon' width='18' height='19'>
               <use href='#icon-bookmark'></use>
             </svg>

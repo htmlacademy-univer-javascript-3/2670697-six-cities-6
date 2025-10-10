@@ -7,15 +7,6 @@ interface CityListProps {
 
 const CityList = ({ changeChooseCity }: CityListProps) => {
 
-  // const CITY_LIST: string[] = [
-  //   'Paris',
-  //   'Cologne',
-  //   'Brussels',
-  //   'Amsterdam',
-  //   'Hamburg',
-  //   'Dusseldorf'
-  // ] as const;
-
   const [isChooseCity, setChooseCity] = useState<string>('Amsterdam');
 
   const handelChooseCity = (city: string) => {
