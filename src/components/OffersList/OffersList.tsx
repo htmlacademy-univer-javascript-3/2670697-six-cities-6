@@ -1,18 +1,16 @@
-import { IBaseOffer, mockOffers } from "../../mocks/offers";
+import { IBaseOffer } from "../../mocks/offers";
 import CityPlaceCard from "../CityPlaceCard";
 
 interface OffersListProps {
-  city: string;
+  offers: IBaseOffer[];
 }
 
-const OffersList = ({ city }: OffersListProps) => {
-
-  const OFFERS_LIST: IBaseOffer[] = mockOffers.filter((offers) => offers.city.name === city);
+const OffersList = ({ offers }: OffersListProps) => {
 
   return (
     <>
     {
-      OFFERS_LIST.map((offer) => (
+      offers.map((offer) => (
         <CityPlaceCard
           key={offer.id}
           offer={offer}

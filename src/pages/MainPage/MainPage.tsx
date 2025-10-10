@@ -1,16 +1,22 @@
-// import React from 'react';
-
 import { useState } from "react";
 import OffersList from "../../components/OffersList";
 import CityList from "../../components/CityList";
-import { CityOffer } from "../../mocks/offers";
+import { IBaseOffer, mockOffers } from "../../mocks/offers";
 
 function MainPage() {
 
   const [isOpenSortList, setOpenSortList] = useState<string>('');
+  const [isChooseCity, setChooseCity] = useState<string>('Amsterdam');
 
-  const handelOpen = () => {
+  const OFFERS_SORT_LIST: IBaseOffer[] = mockOffers.filter((offers) => offers.city.name === isChooseCity);
+  const offerCount: number = OFFERS_SORT_LIST.length;
+
+  const showSortList = () => {
     (isOpenSortList === '') ? setOpenSortList('places__options--opened') : setOpenSortList('');
+  };
+
+  const changeChooseCity = (chooseCity: string) => {
+    setChooseCity(chooseCity);
   };
 
   return (
@@ -49,7 +55,7 @@ function MainPage() {
         <div className='tabs'>
           <section className='locations container'>
             <ul className='locations__list tabs__list'>
-              <CityList/>
+              <CityList changeChooseCity = {changeChooseCity}/>
             </ul>
           </section>
         </div>
@@ -57,13 +63,13 @@ function MainPage() {
           <div className='cities__places-container container'>
             <section className='cities__places places'>
               <h2 className='visually-hidden'>Places</h2>
-              <b className='places__found'>312 places to stay in Amsterdam</b>
+              <b className='places__found'>{offerCount} places to stay in {isChooseCity}</b>
               <form className='places__sorting' action='#' method='get'>
                 <span className='places__sorting-caption'>Sort by</span>
                 <span
                   className='places__sorting-type'
                   tabIndex={0}
-                  onClick={handelOpen}
+                  onClick={showSortList}
                 > Popular
                   <svg className='places__sorting-arrow' width='7' height='4'>
                     <use href='#icon-arrow-select'></use>
@@ -80,7 +86,7 @@ function MainPage() {
               </form>
               <div className='cities__places-list places__list tabs__content'>
                 <OffersList
-                  city={CityOffer.AMSTERDAM} />
+                  offers = {OFFERS_SORT_LIST}/>
               </div>
             </section>
             <div className='cities__right-section'>

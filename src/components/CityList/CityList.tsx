@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { CityOffer } from "../../mocks/offers";
 
-const CityList = () => {
+interface CityListProps {
+  changeChooseCity: (chooseCity: string) => void;
+}
+
+const CityList = ({ changeChooseCity }: CityListProps) => {
 
   // const CITY_LIST: string[] = [
   //   'Paris',
@@ -16,6 +20,7 @@ const CityList = () => {
 
   const handelChooseCity = (city: string) => {
     setChooseCity(city);
+    changeChooseCity(city);
   };
 
   return (
