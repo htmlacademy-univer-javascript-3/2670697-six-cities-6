@@ -2,7 +2,7 @@ export interface IUser {
   name: string;
   avatarUrl: string;
   isPro: boolean;
-};
+}
 
 export interface IReviews {
   id: string;
@@ -10,4 +10,4 @@ export interface IReviews {
   user: IUser;
   comment: string;
   rating: number;
-};
+}

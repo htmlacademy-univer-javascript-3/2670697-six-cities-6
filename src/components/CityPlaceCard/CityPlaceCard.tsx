@@ -1,5 +1,5 @@
 // import { type FC } from 'react';
-import { useState } from 'react';
+// import { useState } from 'react';
 import { IBaseOffer } from '../../mocks/offers';
 
 interface CityPlaceCardProps {
@@ -9,17 +9,17 @@ interface CityPlaceCardProps {
 
 const CityPlaceCard = ({ offer, pageName }: CityPlaceCardProps) => {
 
-  const [isHover, setHover] = useState<boolean>(false);
+  // const [isHover, setHover] = useState<boolean>(false);
 
-  const handleMouseEnter = () => {
-    console.log(`Навел на ${offer.id}`);
-    setHover(true);
-  }
+  // const handleMouseEnter = () => {
+  // console.log(`Навел на ${offer.id}`);
+  // setHover(true);
+  // };
 
-  const handleMouseLeave = () => {
-    console.log(`Покинул ${offer.id}`);
-    setHover(false);
-  }
+  // const handleMouseLeave = () => {
+  // console.log(`Покинул ${offer.id}`);
+  // setHover(false);
+  // };
 
   const styleForMainPage = (pageName === 'MainPage') ? 'cities' : '';
   const styleForFavoritesPage = (pageName === 'FavoritesPage') ? 'favorites' : '';
@@ -30,10 +30,10 @@ const CityPlaceCard = ({ offer, pageName }: CityPlaceCardProps) => {
   const chooseStyleName = styleForMainPage || styleForFavoritesPage;
 
   return (
-    <article 
+    <article
       className={`${chooseStyleName}__card place-card`}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      // onMouseEnter={handleMouseEnter}
+      // onMouseLeave={handleMouseLeave}
     >
       {
         offer.isPremium && (
@@ -45,26 +45,26 @@ const CityPlaceCard = ({ offer, pageName }: CityPlaceCardProps) => {
 
       <div className={`${chooseStyleName}__image-wrapper place-card__image-wrapper`}>
         <a href='#'>
-          <img 
-            className='place-card__image' 
-            src={offer.previewImage} 
-            width={widthForImg} 
-            height={heightForImg} 
-            alt='Place image' 
+          <img
+            className='place-card__image'
+            src={offer.previewImage}
+            width={widthForImg}
+            height={heightForImg}
+            alt='Place image'
           />
         </a>
       </div>
-      <div className={`${(styleForFavoritesPage) ? 'favorites__card-info': ''} place-card__info`}>
+      <div className={`${(styleForFavoritesPage) ? 'favorites__card-info' : ''} place-card__info`}>
         <div className='place-card__price-wrapper'>
           <div className='place-card__price'>
             <b className='place-card__price-value'>&euro;{offer.price}</b>
             <span className='place-card__price-text'>&#47;&nbsp;night</span>
           </div>
-          <button 
+          <button
             className={`
               place-card__bookmark-button 
-              ${(offer.isFavorite) ? 'place-card__bookmark-button--active': ''}
-              button`} 
+              ${(offer.isFavorite) ? 'place-card__bookmark-button--active' : ''}
+              button`}
             type='button'
           >
             <svg className='place-card__bookmark-icon' width='18' height='19'>
@@ -85,7 +85,7 @@ const CityPlaceCard = ({ offer, pageName }: CityPlaceCardProps) => {
         <p className='place-card__type'>{offer.type}</p>
       </div>
     </article>
-  )
+  );
 };
 
 export default CityPlaceCard;

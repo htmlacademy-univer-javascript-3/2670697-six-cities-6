@@ -1,22 +1,18 @@
-import { IBaseOffer } from "../../mocks/offers";
-import CityPlaceCard from "../CityPlaceCard";
+import { IBaseOffer } from '../../mocks/offers';
+import CityPlaceCard from '../CityPlaceCard';
 
 interface OffersFavoritesCardProps {
   cityName: string;
-  sortOffersByCityName: IBaseOffer[]; 
+  sortOffersByCityName: IBaseOffer[];
 }
 
-const OffersFavoritesCard = ({ 
-  cityName, sortOffersByCityName }: OffersFavoritesCardProps
-) => {
+const OffersFavoritesCard = ({ cityName, sortOffersByCityName }: OffersFavoritesCardProps) => {
 
   const sortOffersByIsFavorite: IBaseOffer[] = sortOffersByCityName.filter((offers) => offers.isFavorite === true);
 
 
   if(sortOffersByIsFavorite.length === 0) {
-    return (
-      <></>
-    );
+    return;
   }
 
   return (
@@ -41,6 +37,6 @@ const OffersFavoritesCard = ({
       </div>
     </li>
   );
-}
+};
 
 export default OffersFavoritesCard;

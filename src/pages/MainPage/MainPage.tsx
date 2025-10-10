@@ -1,7 +1,7 @@
-import { useState } from "react";
-import OffersList from "../../components/OffersList";
-import CityList from "../../components/CityList";
-import { IBaseOffer, mockOffers } from "../../mocks/offers";
+import { useState } from 'react';
+import OffersList from '../../components/OffersList';
+import CityList from '../../components/CityList';
+import { IBaseOffer, mockOffers } from '../../mocks/offers';
 
 function MainPage() {
 
@@ -12,7 +12,11 @@ function MainPage() {
   const offerCount: number = OFFERS_SORT_LIST.length;
 
   const showSortList = () => {
-    (isOpenSortList === '') ? setOpenSortList('places__options--opened') : setOpenSortList('');
+    if(isOpenSortList === '') {
+      setOpenSortList('places__options--opened');
+    }else {
+      setOpenSortList('');
+    }
   };
 
   const changeChooseCity = (chooseCity: string) => {
