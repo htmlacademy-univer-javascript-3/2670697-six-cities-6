@@ -1,10 +1,11 @@
 import { useContext, useState } from 'react';
 import OffersList from '../../components/OffersList';
 import CityList from '../../components/CityList';
-import { IBaseOffer } from '../../mocks/offers';
+import { IBaseOffer, ICity } from '../../mocks/offers';
 import Header from '../../components/Header';
 import { MyContext } from '../../App';
 import { CITY_LIST_TYPES, OFFER_SORT_OPTIONS, OFFER_SORT_TYPES } from '../../constants/offers';
+import Map from '../../components/Map';
 
 function MainPage() {
 
@@ -13,9 +14,12 @@ function MainPage() {
 
   const [isChooseCity, setChooseCity] = useState<string>(CITY_LIST_TYPES.PARIS);
 
+  const [selectedPoint, setSelectedPoint] = useState<IBaseOffer>({} as IBaseOffer);
+
   const { mockOffers } = useContext(MyContext);
 
   const OFFERS_SORT_LIST: IBaseOffer[] = mockOffers.filter((offers) => offers.city.name === isChooseCity);
+  const chooseCityData: ICity = OFFERS_SORT_LIST[0].city;
   const offerCount: number = OFFERS_SORT_LIST.length;
 
   const isOffersInChooseCity: boolean = offerCount > 0;
@@ -38,6 +42,16 @@ function MainPage() {
   const changeChooseCity = (chooseCity: string) => {
     setChooseCity(chooseCity);
     setSortsortParam(OFFER_SORT_TYPES.POPULAR);
+    setSelectedPoint({} as IBaseOffer);
+  };
+
+  const handleIsItemHover = (itemName: string) => {
+    const currentPoint: IBaseOffer | undefined = OFFERS_SORT_LIST.find((point) =>
+      point.id === itemName,
+    );
+    if(currentPoint !== undefined) {
+      setSelectedPoint(currentPoint);
+    }
   };
 
   return (
@@ -101,6 +115,7 @@ function MainPage() {
                     <OffersList
                       offers={OFFERS_SORT_LIST}
                       sortParam={sortParam}
+                      isItemHover={handleIsItemHover}
                     />
                   </div>
                 </section>
@@ -116,7 +131,11 @@ function MainPage() {
               {
                 isOffersInChooseCity
                   ?
-                  <section className='cities__map map'></section>
+                  <Map
+                    city={chooseCityData}
+                    points={OFFERS_SORT_LIST}
+                    selectedPoint={selectedPoint}
+                  />
                   :
                   ''
               }
