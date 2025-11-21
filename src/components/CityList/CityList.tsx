@@ -1,17 +1,16 @@
-import { useState } from 'react';
-import { CITY_LIST_OPTIONS, CITY_LIST_TYPES } from '../../constants/offers';
+import { CITY_LIST_OPTIONS } from '../../constants/offers';
+import { useDispatch } from 'react-redux';
+import { useAppSelector } from '../../hooks/redux';
+import { offerSlice } from '../../store/reducers/offerSlice';
 
-interface CityListProps {
-  changeChooseCity: (chooseCity: string) => void;
-}
+const CityList = () => {
+  const isChooseCity = useAppSelector((state) => state.offer.city);
 
-const CityList = ({ changeChooseCity }: CityListProps) => {
-
-  const [isChooseCity, setChooseCity] = useState<string>(CITY_LIST_TYPES.PARIS);
+  const { setCity } = offerSlice.actions;
+  const dispatch = useDispatch();
 
   const handleChooseCity = (city: string) => {
-    setChooseCity(city);
-    changeChooseCity(city);
+    dispatch(setCity(city));
   };
 
   const chooseCityCheck = (city: string) => isChooseCity === city ? 'tabs__item--active' : '';
