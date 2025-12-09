@@ -1,26 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CITY_LIST_TYPES, OFFER_SORT_TYPES } from '../../constants/offers';
 import { IBaseOffer, IFullOffer } from '../../types/offers';
-import { fetchOffers } from '../api-actions';
 
 interface IOfferState {
   city: string;
   sortParam: string;
   offers: IBaseOffer[];
   fullOffer: IFullOffer;
-
-  isLoading: boolean;
-  error: string;
 }
 
 const initialState: IOfferState = {
   city: CITY_LIST_TYPES.PARIS,
   sortParam: OFFER_SORT_TYPES.POPULAR,
-  offers: [] as IBaseOffer[],
+  offers: [],
   fullOffer: {} as IFullOffer,
-
-  isLoading: false,
-  error: '',
 };
 
 export const offerSlice = createSlice({
@@ -42,16 +35,15 @@ export const offerSlice = createSlice({
       state.fullOffer = action.payload;
     },
 
-    setInitialData: (state) => {
+    setInitialOfferData: (state) => {
       state.city = CITY_LIST_TYPES.PARIS;
       state.sortParam = OFFER_SORT_TYPES.POPULAR;
-      state.offers = [] as IBaseOffer[];
+      state.offers = [];
       state.fullOffer = {} as IFullOffer;
-
-      state.isLoading = false;
-      state.error = '';
     },
   },
+
+  /*
   extraReducers: (builder) => {
     builder
       .addCase(fetchOffers.pending, (state) => {
@@ -67,13 +59,15 @@ export const offerSlice = createSlice({
         state.error = action.payload as string;
       });
   }
+  */
 });
 
 export const {
   setCity,
   setSortParam,
   setOffers,
-  setInitialData,
+  setFullOffer,
+  setInitialOfferData,
 } = offerSlice.actions;
 
 export default offerSlice.reducer;

@@ -1,26 +1,34 @@
-import { Link } from 'react-router-dom';
-import { PATHS } from '../../constants/paths';
+import { Link, useNavigate } from 'react-router-dom';
+import { PATHS } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { userSlice } from '../../store/reducers/userSlice';
+import { AuthorizationStatus } from '../../constants';
+import { logoutAction } from '../../store/api-actions';
+import { setErrorParam } from '../../store/reducers/appSlice';
+import { IUser } from '../../types/user';
 
 function Header() {
-  const isAuth = useAppSelector((state) => state.user.authorizationStatus);
-  const offers = useAppSelector((state) => state.offer.offers);
+  const { authorizationStatus } = useAppSelector((state) => state.user);
+  const userData: IUser = useAppSelector((state) => state.user.user);
 
-  const { setAuthorizationStatus} = userSlice.actions;
+  const { offers } = useAppSelector((state) => state.offer);
+
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  const userEmail: string = 'Oliver.conner@gmail.com';
   const favoriteOffersCount: number = offers.filter((offer) => offer.isFavorite === true).length;
 
-  const authUserData = (isAuth) ? (
-    <>
-      <span className='header__user-name user__name'>{userEmail}</span>
-      <span className='header__favorite-count'>{favoriteOffersCount}</span>
-    </>
-  )
-    :
-    <span className='header__login'>Sign in</span>;
+  const isAuth = authorizationStatus === AuthorizationStatus.Auth;
+
+  const handleLogout = () => {
+    (async () => {
+      try {
+        await dispatch(logoutAction());
+        navigate(PATHS.LOGIN_PAGE);
+      } catch (error) {
+        dispatch(setErrorParam(error as string)); // !!!!!
+      }
+    })();
+  };
 
   return (
     <header className='header'>
@@ -35,23 +43,28 @@ function Header() {
             <ul className='header__nav-list'>
               <li className='header__nav-item user'>
                 <Link className='header__nav-link header__nav-link--profile' to={PATHS.FAVORITES_PAGE}>
-                  <div className='header__avatar-wrapper user__avatar-wrapper'>
-                  </div>
+                  <div className='header__avatar-wrapper user__avatar-wrapper'></div>
                   {
-                    authUserData
+                    isAuth
+                      ?
+                      <>
+                        <span className='header__user-name user__name'>{userData.email}</span>
+                        <span className='header__favorite-count'>{favoriteOffersCount}</span>
+                      </>
+                      :
+                      <span className='header__login'>Sign in</span>
                   }
                 </Link>
               </li>
               {
                 isAuth && (
                   <li className='header__nav-item'>
-                    <Link
+                    <a
                       className='header__nav-link'
-                      to={PATHS.LOGIN_PAGE}
-                      onClick={() => dispatch(setAuthorizationStatus(false))}
+                      onClick={handleLogout}
                     >
                       <span className='header__signout'>Sign out</span>
-                    </Link>
+                    </a>
                   </li>
                 )
               }

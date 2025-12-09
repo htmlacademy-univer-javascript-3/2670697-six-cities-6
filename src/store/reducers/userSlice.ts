@@ -1,20 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IUser } from '../../types/users';
+import { IUser } from '../../types/user';
+import { AuthorizationStatus } from '../../constants';
 
 interface IUserState {
-  users: IUser;
-  authorizationStatus: boolean;
-
-  isLoading: boolean;
-  error: string;
+  user: IUser;
+  authorizationStatus: AuthorizationStatus;
 }
 
 const initialState: IUserState = {
-  users: {} as IUser,
-  authorizationStatus: true,
-
-  isLoading: false,
-  error: '',
+  user: {} as IUser,
+  authorizationStatus: AuthorizationStatus.Unknown,
 };
 
 export const userSlice = createSlice({
@@ -22,18 +17,14 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<IUser>) => {
-      state.users = action.payload;
+      state.user = action.payload;
     },
-    setAuthorizationStatus: (state, action: PayloadAction<boolean>) => {
+    setAuthorizationStatus: (state, action: PayloadAction<AuthorizationStatus>) => {
       state.authorizationStatus = action.payload;
     },
 
-    setInitialData: (state) => {
-      state.users = {} as IUser;
-      state.authorizationStatus = false;
-
-      state.isLoading = false;
-      state.error = '';
+    removeUserData: (state) => {
+      state.user = {} as IUser;
     },
   },
 });
@@ -41,7 +32,7 @@ export const userSlice = createSlice({
 export const {
   setUser,
   setAuthorizationStatus,
-  setInitialData,
+  removeUserData,
 } = userSlice.actions;
 
 export default userSlice.reducer;

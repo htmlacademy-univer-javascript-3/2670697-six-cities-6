@@ -6,17 +6,18 @@ import { mockOffersById, mockOffersNearby } from '../../mocks/offers';
 import { mockReviews } from '../../mocks/reviews';
 import { IBaseOffer, IFullOffer } from '../../types/offers';
 import { IReviews } from '../../types/reviews';
-import { PATHS } from '../../constants/paths';
+import { PATHS } from '../../constants';
 import Map from '../../components/Map';
 import ReviewsList from '../../components/ReviewsList';
 import OffersList from '../../components/OffersList';
 import { cardNameForDisplayStyles } from '../../constants/offers';
 import { useAppSelector } from '../../hooks/redux';
+import { AuthorizationStatus } from '../../constants';
 
 function OfferPage() {
   const navigate = useNavigate();
 
-  const isAuth = useAppSelector((state) => state.user.authorizationStatus);
+  const { authorizationStatus } = useAppSelector((state) => state.user);
 
   // const { id } = useParams();
   // const offer: IFullOffer = mockOffers.find((offers) => offers.id === id);
@@ -51,9 +52,8 @@ function OfferPage() {
     }
   };
 
-
   const handleBookmarkBtnClick = () => {
-    if (!isAuth) {
+    if (authorizationStatus !== AuthorizationStatus.Auth) {
       navigate(PATHS.LOGIN_PAGE);
       return;
     }
