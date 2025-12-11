@@ -8,7 +8,7 @@ import { IUser } from '../../types/user';
 
 function Header() {
   const { authorizationStatus } = useAppSelector((state) => state.user);
-  const userData: IUser = useAppSelector((state) => state.user.user);
+  const userData: IUser | null = useAppSelector((state) => state.user.user);
 
   const { offers } = useAppSelector((state) => state.offer);
 
@@ -25,7 +25,7 @@ function Header() {
         await dispatch(logoutAction());
         navigate(PATHS.LOGIN_PAGE);
       } catch (error) {
-        dispatch(setErrorParam(error as string)); // !!!!!
+        dispatch(setErrorParam('Выйти из аккаунта не удалось'));
       }
     })();
   };
@@ -48,7 +48,7 @@ function Header() {
                     isAuth
                       ?
                       <>
-                        <span className='header__user-name user__name'>{userData.email}</span>
+                        <span className='header__user-name user__name'>{userData?.email}</span>
                         <span className='header__favorite-count'>{favoriteOffersCount}</span>
                       </>
                       :

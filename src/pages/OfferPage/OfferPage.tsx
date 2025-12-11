@@ -1,59 +1,73 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+
 import CommentSubmitForm from '../../components/CommentSubmitForm';
 import Header from '../../components/Header';
-import { useState } from 'react';
-import { mockOffersById, mockOffersNearby } from '../../mocks/offers';
-import { mockReviews } from '../../mocks/reviews';
-import { IBaseOffer, IFullOffer } from '../../types/offers';
-import { IReviews } from '../../types/reviews';
-import { PATHS } from '../../constants';
 import Map from '../../components/Map';
 import ReviewsList from '../../components/ReviewsList';
 import OffersList from '../../components/OffersList';
+import Spinner from '../../components/Spinner';
+
+import { IBaseOffer } from '../../types/offers';
+import { PATHS } from '../../constants';
 import { cardNameForDisplayStyles } from '../../constants/offers';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { AuthorizationStatus } from '../../constants';
+import { fetchComments, fetchOfferById, fetchOfferByIdNearby } from '../../store/api-actions';
 
 function OfferPage() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { id } = useParams();
 
   const { authorizationStatus } = useAppSelector((state) => state.user);
+  const { comments, offers, offersNearby, fullOffer } = useAppSelector((state) => state.offer);
 
-  // const { id } = useParams();
-  // const offer: IFullOffer = mockOffers.find((offers) => offers.id === id);
-  const offer: IFullOffer = mockOffersById;
-  const reviews: IReviews[] = mockReviews;
+  useEffect(() => {
+    if (!id) {
+      return;
+    }
 
-  const reviewsCount: number = reviews.length;
+    dispatch(fetchOfferById(id))
+      .unwrap()
+      .catch(() => {
+        navigate(PATHS.NOTFOUND_PAGE, { replace: true });
+      });
 
-  const mockOfferGallery = [
-    'img/room.jpg',
-    'img/apartment-01.jpg',
-    'img/apartment-02.jpg',
-    'img/apartment-03.jpg',
-    'img/studio-01.jpg',
-    'img/apartment-01.jpg',
-  ];
+    dispatch(fetchComments(id))
+      .unwrap()
+      .catch(() => {
+        navigate(PATHS.NOTFOUND_PAGE, { replace: true });
+      });
 
-  const offerGallery: string[] = offer.images.slice(0, 6) || mockOfferGallery;
+    dispatch(fetchOfferByIdNearby(id))
+      .unwrap()
+      .catch(() => {
+        navigate(PATHS.NOTFOUND_PAGE, { replace: true });
+      });
+  }, [dispatch, navigate, id]);
 
-  const [isClickOnBookmarkBtn, setIsClickOnBookmarkBtn] = useState<string>((offer.isFavorite) ? 'offer__bookmark-button--active' : '');
+  const isAuth = authorizationStatus === AuthorizationStatus.Auth;
+  const chooseOffer: IBaseOffer[] = offers.filter((choose) => choose.id === id);
+
+  const [isClickOnBookmarkBtn, setIsClickOnBookmarkBtn] = useState<string>((fullOffer?.isFavorite) ? 'offer__bookmark-button--active' : '');
+
+  if (!fullOffer || offersNearby.length === 0) {
+    return (
+      <Spinner />
+    );
+  }
+
+  const pointsNearbyArr: IBaseOffer[] = [chooseOffer[0], ...offersNearby];
+
+  const commentsCount: number = comments.length;
+
+  const offerGallery: string[] = fullOffer.images.slice(0, 6) || [];
 
   const raitingCount = (raiting: number): string => `${Math.round(raiting) * 100 / 5}%`;
 
-  const [selectedPoint, setSelectedPoint] = useState<IBaseOffer>({} as IBaseOffer);
-
-  const handleIsItemHover = (itemName: string) => {
-    const currentPoint: IBaseOffer | undefined = mockOffersNearby.find((point) =>
-      point.id === itemName,
-    );
-    if (currentPoint !== undefined) {
-      setSelectedPoint(currentPoint);
-    }
-  };
-
   const handleBookmarkBtnClick = () => {
-    if (authorizationStatus !== AuthorizationStatus.Auth) {
+    if (!isAuth) {
       navigate(PATHS.LOGIN_PAGE);
       return;
     }
@@ -85,7 +99,7 @@ function OfferPage() {
           <div className='offer__container container'>
             <div className='offer__wrapper'>
               {
-                offer.isPremium && (
+                fullOffer.isPremium && (
                   <div className='offer__mark'>
                     <span>Premium</span>
                   </div>
@@ -93,7 +107,7 @@ function OfferPage() {
               }
               <div className='offer__name-wrapper'>
                 <h1 className='offer__name'>
-                  {offer.title}
+                  {fullOffer.title}
                 </h1>
                 <button
                   className={`
@@ -111,31 +125,31 @@ function OfferPage() {
               </div>
               <div className='offer__rating rating'>
                 <div className='offer__stars rating__stars'>
-                  <span style={{ width: raitingCount(offer.rating) }}></span>
+                  <span style={{ width: raitingCount(fullOffer.rating) }}></span>
                   <span className='visually-hidden'>Rating</span>
                 </div>
-                <span className='offer__rating-value rating__value'>{offer.rating}</span>
+                <span className='offer__rating-value rating__value'>{fullOffer.rating}</span>
               </div>
               <ul className='offer__features'>
                 <li className='offer__feature offer__feature--entire'>
-                  {offer.type}
+                  {fullOffer.type}
                 </li>
                 <li className='offer__feature offer__feature--bedrooms'>
-                  {offer.bedrooms} Bedrooms
+                  {fullOffer.bedrooms} Bedrooms
                 </li>
                 <li className='offer__feature offer__feature--adults'>
-                  Max {offer.maxAdults} adults
+                  Max {fullOffer.maxAdults} adults
                 </li>
               </ul>
               <div className='offer__price'>
-                <b className='offer__price-value'>&euro;{offer.price}</b>
+                <b className='offer__price-value'>&euro;{fullOffer.price}</b>
                 <span className='offer__price-text'>&nbsp;night</span>
               </div>
               <div className='offer__inside'>
                 <h2 className='offer__inside-title'>What&apos;s inside</h2>
                 <ul className='offer__inside-list'>
                   {
-                    offer.goods && offer.goods.map((item) => (
+                    fullOffer.goods && fullOffer.goods.map((item) => (
                       <li className='offer__inside-item' key={item}>
                         {item}
                       </li>
@@ -147,50 +161,54 @@ function OfferPage() {
                 <h2 className='offer__host-title'>Meet the host</h2>
                 <div className='offer__host-user user'>
                   <div className='offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper'>
-                    <img className='offer__avatar user__avatar' src={offer.host.avatarUrl} width='74' height='74' alt='Host avatar' />
+                    <img className='offer__avatar user__avatar' src={fullOffer.host.avatarUrl} width='74' height='74' alt='Host avatar' />
                   </div>
                   <span className='offer__user-name'>
-                    {offer.host.name}
+                    {fullOffer.host.name}
                   </span>
                   <span className='offer__user-status'>
                     {
-                      offer.host.isPro && ('Pro')
+                      fullOffer.host.isPro && ('Pro')
                     }
                   </span>
                 </div>
                 <div className='offer__description'>
                   <p className='offer__text'>
-                    {offer.description}
+                    {fullOffer.description}
                   </p>
                 </div>
               </div>
               <section className='offer__reviews reviews'>
                 <h2 className='reviews__title'>Reviews &middot;
-                  <span className='reviews__amount'>{reviewsCount}</span>
+                  <span className='reviews__amount'>{commentsCount}</span>
                 </h2>
-                <ReviewsList reviews={reviews} />
-                <CommentSubmitForm />
+                <ReviewsList comments={comments} />
+                {
+                  isAuth
+                  &&
+                  <CommentSubmitForm
+                    key={fullOffer.id}
+                    offerId={(id) ? id : ''}
+                  />
+                }
               </section>
             </div>
           </div>
           <Map
             namePage='OfferPage'
-            city={offer.city}
-            points={mockOffersNearby}
-            selectedPoint={selectedPoint}
+            city={fullOffer.city}
+            points={pointsNearbyArr}
+            selectedPoint={chooseOffer[0]}
           />
         </section>
         <div className='container'>
           <section className='near-places places'>
             <h2 className='near-places__title'>Other places in the neighbourhood</h2>
             <div className='near-places__list places__list'>
-              {
-                <OffersList
-                  offers={mockOffersNearby}
-                  cardNameForDisplayStyles={cardNameForDisplayStyles.NEAR_PLACES}
-                  isItemHover={handleIsItemHover}
-                />
-              }
+              <OffersList
+                offers={offersNearby}
+                cardNameForDisplayStyles={cardNameForDisplayStyles.NEAR_PLACES}
+              />
             </div>
           </section>
         </div>

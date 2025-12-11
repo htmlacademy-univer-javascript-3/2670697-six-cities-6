@@ -1,19 +1,32 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CITY_LIST_TYPES, OFFER_SORT_TYPES } from '../../constants/offers';
 import { IBaseOffer, IFullOffer } from '../../types/offers';
+import { IReview } from '../../types/reviews';
 
 interface IOfferState {
   city: string;
   sortParam: string;
+
   offers: IBaseOffer[];
-  fullOffer: IFullOffer;
+  offersNearby: IBaseOffer[];
+  fullOffer: IFullOffer | null;
+
+  review: IReview | null;
+  isReviewSending: boolean;
+  comments: IReview[];
 }
 
 const initialState: IOfferState = {
   city: CITY_LIST_TYPES.PARIS,
   sortParam: OFFER_SORT_TYPES.POPULAR,
+
   offers: [],
-  fullOffer: {} as IFullOffer,
+  offersNearby: [],
+  fullOffer: null,
+
+  review: null,
+  isReviewSending: false,
+  comments: [],
 };
 
 export const offerSlice = createSlice({
@@ -31,42 +44,47 @@ export const offerSlice = createSlice({
     setOffers: (state, action: PayloadAction<IBaseOffer[]>) => {
       state.offers = action.payload;
     },
+    setOffersNearby: (state, action: PayloadAction<IBaseOffer[]>) => {
+      state.offersNearby = action.payload;
+    },
     setFullOffer: (state, action: PayloadAction<IFullOffer>) => {
       state.fullOffer = action.payload;
+    },
+
+    setReview: (state, action: PayloadAction<IReview>) => {
+      state.review = action.payload;
+    },
+    setIsReviewSending: (state, action: PayloadAction<boolean>) => {
+      state.isReviewSending = action.payload;
+    },
+    setComments: (state, action: PayloadAction<IReview[]>) => {
+      state.comments = action.payload;
     },
 
     setInitialOfferData: (state) => {
       state.city = CITY_LIST_TYPES.PARIS;
       state.sortParam = OFFER_SORT_TYPES.POPULAR;
       state.offers = [];
-      state.fullOffer = {} as IFullOffer;
+      state.review = null;
+      state.isReviewSending = false;
+      state.comments = [];
+      state.offersNearby = [];
+      state.fullOffer = null;
     },
   },
-
-  /*
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchOffers.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(fetchOffers.fulfilled, (state, action: PayloadAction<IBaseOffer[]>) => {
-        state.isLoading = false;
-        state.error = '';
-        state.offers = action.payload;
-      })
-      .addCase(fetchOffers.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload as string;
-      });
-  }
-  */
 });
 
 export const {
   setCity,
   setSortParam,
+
   setOffers,
+  setOffersNearby,
   setFullOffer,
+
+  setReview,
+  setIsReviewSending,
+  setComments,
   setInitialOfferData,
 } = offerSlice.actions;
 
