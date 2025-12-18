@@ -3,11 +3,12 @@ import OffersList from '../../components/OffersList';
 import CityList from '../../components/CityList';
 import { IBaseOffer } from '../../types/offers';
 import Header from '../../components/Header';
-import { cardNameForDisplayStyles } from '../../constants/offers';
+import { CardDisplayStyle } from '../../constants/offers';
 import Map from '../../components/Map';
 import { useAppSelector } from '../../hooks/redux';
 import SortOffersByParam from '../../components/SortOffersByParam';
 import { getCity, getSortedOffersByCity } from '../../store/selectors/offerSelectors';
+import OffersEmpty from '../../components/OffersEmpty';
 
 function MainPage() {
   const city = useAppSelector(getCity);
@@ -58,18 +59,13 @@ function MainPage() {
                   <div className='cities__places-list places__list tabs__content'>
                     <OffersList
                       offers={sortedOffers}
-                      cardNameForDisplayStyles={cardNameForDisplayStyles.CITIES}
-                      isItemHover={handleIsItemHover}
+                      cardDisplayStyle ={CardDisplayStyle.Cities}
+                      onItemHover={handleIsItemHover}
                     />
                   </div>
                 </section>
                 :
-                <section className='cities__no-places'>
-                  <div className='cities__status-wrapper tabs__content'>
-                    <b className='cities__status'>No places to stay available</b>
-                    <p className='cities__status-description'>We could not find any property available at the moment in {city}</p>
-                  </div>
-                </section>
+                <OffersEmpty city={city}/>
             }
             <div className='cities__right-section'>
               {
