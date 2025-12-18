@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import CommentSubmitForm from '../../components/CommentSubmitForm';
 import Header from '../../components/Header';
@@ -13,15 +13,15 @@ import { PATHS } from '../../constants';
 import { cardNameForDisplayStyles } from '../../constants/offers';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { AuthorizationStatus } from '../../constants';
-import { fetchComments, fetchOfferById, fetchOfferByIdNearby } from '../../store/api-actions';
+import { changeFavoriteStatusOffer, fetchComments, fetchFavoriteOffers, fetchOfferById, fetchOfferByIdNearby } from '../../store/api-actions';
+import { processErrorHandle } from '../../services/process-error-handle';
+import { getComments, getFullOffer, getOffers, getOffersNearby } from '../../store/selectors/offerSelectors';
+import { getAuthorizationStatus } from '../../store/selectors/userSelectors';
 
 function OfferPage() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { id } = useParams();
-
-  const { authorizationStatus } = useAppSelector((state) => state.user);
-  const { comments, offers, offersNearby, fullOffer } = useAppSelector((state) => state.offer);
 
   useEffect(() => {
     if (!id) {
@@ -47,18 +47,22 @@ function OfferPage() {
       });
   }, [dispatch, navigate, id]);
 
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const comments = useAppSelector(getComments);
+  const offers = useAppSelector(getOffers);
+  const offersNearby = useAppSelector(getOffersNearby);
+  const fullOffer = useAppSelector(getFullOffer);
+
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
-  const chooseOffer: IBaseOffer[] = offers.filter((choose) => choose.id === id);
+  const chooseOffer: IBaseOffer | undefined = offers.find((choose) => choose.id === id);
 
-  const [isClickOnBookmarkBtn, setIsClickOnBookmarkBtn] = useState<string>((fullOffer?.isFavorite) ? 'offer__bookmark-button--active' : '');
-
-  if (!fullOffer || offersNearby.length === 0) {
+  if (!fullOffer || !offersNearby || !chooseOffer) {
     return (
       <Spinner />
     );
   }
 
-  const pointsNearbyArr: IBaseOffer[] = [chooseOffer[0], ...offersNearby];
+  const pointsNearbyArr: IBaseOffer[] | undefined = [chooseOffer, ...offersNearby];
 
   const commentsCount: number = comments.length;
 
@@ -72,11 +76,17 @@ function OfferPage() {
       return;
     }
 
-    if (isClickOnBookmarkBtn === '') {
-      setIsClickOnBookmarkBtn('offer__bookmark-button--active');
-    } else {
-      setIsClickOnBookmarkBtn('');
-    }
+    const nextStatus = fullOffer.isFavorite ? 0 : 1;
+
+    dispatch(changeFavoriteStatusOffer({ id: fullOffer.id, status: nextStatus }))
+      .unwrap()
+      .then(() => {
+        dispatch(fetchOfferById(fullOffer.id));
+        dispatch(fetchFavoriteOffers());
+      })
+      .catch(() => {
+        processErrorHandle(nextStatus === 1 ? 'Не удалось добавить в избранное' : 'Не удалось удалить из избранного');
+      });
   };
 
   return (
@@ -112,7 +122,7 @@ function OfferPage() {
                 <button
                   className={`
                     offer__bookmark-button
-                    ${isClickOnBookmarkBtn}
+                    ${fullOffer.isFavorite ? 'offer__bookmark-button--active' : ''}
                     button`}
                   type='button'
                   onClick={handleBookmarkBtnClick}
@@ -132,13 +142,13 @@ function OfferPage() {
               </div>
               <ul className='offer__features'>
                 <li className='offer__feature offer__feature--entire'>
-                  {fullOffer.type}
+                  {fullOffer.type.charAt(0).toUpperCase() + fullOffer.type.slice(1)}
                 </li>
                 <li className='offer__feature offer__feature--bedrooms'>
-                  {fullOffer.bedrooms} Bedrooms
+                  {fullOffer.bedrooms} {fullOffer.bedrooms === 1 ? 'Bedroom' : 'Bedrooms'}
                 </li>
                 <li className='offer__feature offer__feature--adults'>
-                  Max {fullOffer.maxAdults} adults
+                  Max {fullOffer.maxAdults} {fullOffer.maxAdults === 1 ? 'adult' : 'adults'}
                 </li>
               </ul>
               <div className='offer__price'>
@@ -160,7 +170,7 @@ function OfferPage() {
               <div className='offer__host'>
                 <h2 className='offer__host-title'>Meet the host</h2>
                 <div className='offer__host-user user'>
-                  <div className='offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper'>
+                  <div className={`offer__avatar-wrapper ${fullOffer.host.isPro ? 'offer__avatar-wrapper--pro' : ''} user__avatar-wrapper`}>
                     <img className='offer__avatar user__avatar' src={fullOffer.host.avatarUrl} width='74' height='74' alt='Host avatar' />
                   </div>
                   <span className='offer__user-name'>
@@ -198,7 +208,7 @@ function OfferPage() {
             namePage='OfferPage'
             city={fullOffer.city}
             points={pointsNearbyArr}
-            selectedPoint={chooseOffer[0]}
+            selectedPoint={chooseOffer}
           />
         </section>
         <div className='container'>

@@ -1,13 +1,31 @@
+import { useEffect } from 'react';
 import Header from '../../components/Header';
 import OffersFavoritesList from '../../components/OffersFavoritesList';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { fetchFavoriteOffers } from '../../store/api-actions';
+import Spinner from '../../components/Spinner';
+import { Link } from 'react-router-dom';
+import { PATHS } from '../../constants';
+import { getFavoriteoffers, getIsFavoriteoffersLoad } from '../../store/selectors/offerSelectors';
 
 function FavoritesPage() {
-  const offers = useAppSelector((state) => state.offer.offers);
+  const dispatch = useAppDispatch();
 
-  const favoriteOffersCount = offers.filter((offer) => offer.isFavorite === true).length;
+  const favoriteoffers = useAppSelector(getFavoriteoffers);
+  const isFavoriteoffersLoad = useAppSelector(getIsFavoriteoffersLoad);
 
+  useEffect(() => {
+    dispatch(fetchFavoriteOffers());
+  }, [dispatch]);
+
+  const favoriteOffersCount = favoriteoffers.length;
   const isOffers: boolean = favoriteOffersCount > 0;
+
+  if(isFavoriteoffersLoad) {
+    return (
+      <Spinner />
+    );
+  }
 
   return (
     <div className={`page ${isOffers ? '' : 'page--favorites-empty'} `}>
@@ -33,9 +51,9 @@ function FavoritesPage() {
         </div>
       </main>
       <footer className='footer container'>
-        <a className='footer__logo-link' href='main.html'>
+        <Link to={PATHS.MAIN_PAGE} className='footer__logo-link'>
           <img className='footer__logo' src='img/logo.svg' alt='6 cities logo' width='64' height='33' />
-        </a>
+        </Link>
       </footer>
     </div>
   );

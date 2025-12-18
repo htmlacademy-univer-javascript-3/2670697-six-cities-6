@@ -2,9 +2,11 @@ import { CITY_LIST_OPTIONS } from '../../constants/offers';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../hooks/redux';
 import { offerSlice } from '../../store/reducers/offerSlice';
+import { getCity } from '../../store/selectors/offerSelectors';
+import { memo } from 'react';
 
-const CityList = () => {
-  const isChooseCity = useAppSelector((state) => state.offer.city);
+const CityList = memo(() => {
+  const isChooseCity = useAppSelector(getCity);
 
   const { setCity } = offerSlice.actions;
   const dispatch = useDispatch();
@@ -32,6 +34,7 @@ const CityList = () => {
       }
     </>
   );
-};
+});
 
+CityList.displayName = 'CityList';
 export default CityList;

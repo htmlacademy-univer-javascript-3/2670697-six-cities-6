@@ -1,7 +1,8 @@
-import { ChangeEvent, FormEvent, useMemo, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useMemo, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { addNewReviewOnSite } from '../../store/api-actions';
 import { IReviewData } from '../../types/reviews';
+import { getIsReviewSending } from '../../store/selectors/offerSelectors';
 
 const RATING_VALUES: number[] = [5, 4, 3, 2, 1];
 const MIN_LENGTH: number = 50;
@@ -14,7 +15,7 @@ interface CommentSubmitFormProps {
 const CommentSubmitForm = ({ offerId }: CommentSubmitFormProps) => {
   const dispatch = useAppDispatch();
 
-  const { isReviewSending } = useAppSelector((state) => state.offer);
+  const isReviewSending = useAppSelector(getIsReviewSending);
 
   const [rating, setRating] = useState<number>(0);
   const [comment, setComment] = useState<string>('');
@@ -34,9 +35,12 @@ const CommentSubmitForm = ({ offerId }: CommentSubmitFormProps) => {
 
     const reviewData: IReviewData = { id: offerId, comment, rating };
 
-    dispatch(addNewReviewOnSite(reviewData)).unwrap();
-    setRating(0);
-    setComment('');
+    dispatch(addNewReviewOnSite(reviewData))
+      .unwrap()
+      .then(() => {
+        setRating(0);
+        setComment('');
+      });
   };
 
   return (
@@ -50,7 +54,7 @@ const CommentSubmitForm = ({ offerId }: CommentSubmitFormProps) => {
       <div className='reviews__rating-form form__rating'>
         {
           RATING_VALUES.map((value) => (
-            <>
+            <React.Fragment key={value}>
               <input
                 className='form__rating-input visually-hidden'
                 name='rating'
@@ -70,7 +74,7 @@ const CommentSubmitForm = ({ offerId }: CommentSubmitFormProps) => {
                   <use href='#icon-star'></use>
                 </svg>
               </label>
-            </>
+            </React.Fragment>
           )
           )
         }
